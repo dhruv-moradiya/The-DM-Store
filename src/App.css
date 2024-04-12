@@ -1,0 +1,10 @@
+.slick-slide > div {
+  display: grid;
+  place-items: center;
+  margin: auto;
+  /* padding: 0px 30px; */
+}
+
+a {
+  text-decoration: none !important;
+}

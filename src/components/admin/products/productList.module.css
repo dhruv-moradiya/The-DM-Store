@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 0 30px;
+  margin: 10px 0;
+  color: #272727;
+}
+
+.formBtns button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #dfdfdf;
+  color: #58595b;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.formBtns button:hover {
+  background-color: #c4c4c4;
+}
+
+.tableProductList {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.productListThead th {
+  text-align: center !important;
+}
+
+.productListTbody tr {
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding: 8px;
+  text-align: left;
+}
+
+.productListTbody td {
+  text-align: center;
+  padding: 2px;
+}
+
+.tableProductList th {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.imageTD {
+  width: 150px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.imageTD img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.desc {
+  width: 200px;
+  max-height: 2.6; /* 2 lines with line height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.tableProductList td i {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.formBtns {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,19 @@
+.contanier {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerCard {
+  margin: 25px;
+  height: 190px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.containerCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

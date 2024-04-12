@@ -1,0 +1,92 @@
+.container {
+  flex: 1;
+  border-top: 1px solid rgb(240, 240, 240);
+  border-right: 1px solid rgb(240, 240, 240);
+  border-radius: 4px;
+  padding: 10px 30px;
+  padding-right: 4px;
+}
+
+.filterType {
+  border-top: 2px solid rgb(228, 228, 228);
+  color: #58595b;
+}
+
+.filterType h3 {
+  font-size: 14px;
+  font-weight: 800;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+.filterType > input {
+  width: 100%;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 4px;
+  padding: 10px 10px;
+}
+
+.filterType input::placeholder {
+  color: rgb(200, 200, 200);
+}
+
+.themeButtons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.themeButton {
+  display: flex;
+  gap: 10px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.themeButton label,
+.price label {
+  font-size: 14px;
+}
+
+.themeButtons input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+}
+
+.size {
+  width: 100%;
+  list-style: none;
+  padding: 16px 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.size li {
+  border: 1px solid rgb(206, 206, 206);
+  font-size: 13px;
+  width: 40px;
+  border-radius: 6px;
+  text-align: center;
+  padding: 2px 0;
+  cursor: pointer;
+}
+
+.price {
+  list-style: none;
+  width: 100%;
+  /* width: 100%;
+  display: flex;
+  justify-content: start;
+  flex-direction: column; */
+}
+
+.price li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}

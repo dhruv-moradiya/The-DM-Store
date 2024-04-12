@@ -1,0 +1,27 @@
+.container {
+  width: 100% !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  border: 4px solid red;
+  border-top: 4px solid rgb(255, 198, 198);
+  border-radius: 50px;
+  transition: all 0.28s;
+  animation-name: Loader;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+@keyframes Loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

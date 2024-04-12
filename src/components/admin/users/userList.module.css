@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container h3 {
+  margin: 20px;
+  font-size: 20px;
+}
+
+.container table {
+  width: 90%;
+}
+
+.container th {
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+.container td {
+  padding: 4px 0;
+}
+
+.imageTD {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.imageTD img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

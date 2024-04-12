@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  /* padding: 0 30px; */
+}
+
+.cardContainer {
+  /* width: 450px; */
+  margin: 0 20px;
+  height: 450px;
+  overflow: hidden;
+}
+
+.cardContainer img {
+  width: 100%;
+  overflow: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,154 @@
+.container {
+  flex: 1;
+  color: #58595b;
+  padding: 5px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 24px;
+  /* padding-bottom: 12px; */
+}
+
+hr {
+  /* margin: 14px 0; */
+  border-color: #fdfdfd;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.price h4 {
+  font-size: 18px;
+}
+
+.checkBoxes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  /* padding: 20px 0; */
+  /* margin: 6px 0px; */
+}
+
+.checkBoxes li {
+  border: 1px solid #c6c6c6;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.quantityPart {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quantityPart label {
+  font-size: 14px;
+}
+
+.quantityPart select {
+  border: 1px solid #c6c6c6;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btns button {
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  width: 160px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btns button:nth-child(1) {
+  background-color: #ec3d25;
+  font-weight: 600;
+  color: white;
+}
+
+.btns button:nth-child(2) {
+  border: 1px solid #0bacac;
+  color: #0bacac;
+}
+
+.btns button:nth-child(2) i {
+  margin-right: 6px;
+}
+
+.sharePart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sharePart p {
+  font-size: 14px;
+}
+
+.sharePart ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sharePart ul li {
+  width: 36px;
+  height: 36px;
+  font-size: 22px !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.sharePart ul li:hover {
+  border: 3px solid #ec3d25;
+  color: #ec3d25;
+}
+
+.pincode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pincode input {
+  padding: 5px 10px;
+  border: 1px solid #c6c6c6;
+  border-radius: 4px;
+}
+
+.pincode button {
+  padding: 5px 10px;
+  border: 1px solid #c6c6c6;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.description h3 {
+  padding: 6px 0px;
+  font-size: 16px;
+}
+
+.description p {
+  font-size: 14px;
+}

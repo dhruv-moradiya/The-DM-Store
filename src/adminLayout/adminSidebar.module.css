@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  /* background-color: aqua; */
+}
+
+.container ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  list-style: none;
+  font-size: 17px;
+}
+
+.container a {
+  text-decoration: none;
+  color: black;
+}
+
+.container ul i {
+  margin-right: 5px;
+}
