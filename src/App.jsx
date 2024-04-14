@@ -11,6 +11,7 @@ import LoginPage from './components/register/login/LoginPage'
 import SignUp from './components/register/signup/SignUp'
 import { useClothContext } from './context/ClothContext'
 import ProductDetail from './page/ProductDetail'
+import LikedProducts from './page/LikedProducts'
 
 function ProtectedRoute({ user, children }) {
   const navigate = useNavigate()
@@ -44,6 +45,7 @@ function App() {
             <Route index element={<ProtectedRoute user={currentUser}><Home /></ProtectedRoute>} />
             <Route path='/:category' element={<CategoryProducts />} />
             <Route path='/:category/:productID' element={<ProductDetail />} />
+            <Route path='/likedProducts' element={<LikedProducts />} />
             <Route path='/admin' element={<AdminLayout />}>
               <Route index element={<Admin />} />
               <Route path='/admin/users' element={<Users />} />

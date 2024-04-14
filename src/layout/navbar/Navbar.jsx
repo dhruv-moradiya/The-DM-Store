@@ -27,9 +27,9 @@ function Navbar() {
   }, [section]);
 
   function handleClick() {
-    const user = JSON.parse(localStorage.getItem('DMStore_User'));
+    const user = JSON.parse(localStorage.getItem("DMStore_User"));
 
-    if (user.email === 'gojo@gmail.com') {
+    if (user.email === "gojo@gmail.com") {
       navigate("/admin");
     } else {
       navigate("/login");
@@ -37,19 +37,25 @@ function Navbar() {
   }
 
   function logOutUser() {
-    signOut(auth).then(() => {
-      console.log('Sign-out successful.')
-      navigate('/login')
-    }).catch((error) => {
-      console.log('An error happened.', error)
-    });
+    signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful.");
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log("An error happened.", error);
+      });
   }
 
-  if (!currentUser) return <h1>Loading....</h1>
+  function redirectHome() {
+    navigate("/");
+  }
+
+  if (!currentUser) return <h1>Loading....</h1>;
   return (
     <nav>
       <ul className={styles.navTop}>
-        <h3>The DM Store</h3>
+        <h3 onClick={redirectHome}>The DM Store</h3>
         {["MEN", "WOMEN", "KIDS"].map((item, index) => {
           return (
             <li
@@ -71,7 +77,7 @@ function Navbar() {
               <li key={index}>
                 <div className={styles.innerCategoryName}>
                   <p>{item}</p>
-                  {item !== "SNEAKERS" && item !== 'BOY' && item !== 'GIRL' && (
+                  {item !== "SNEAKERS" && item !== "BOY" && item !== "GIRL" && (
                     <i className="ri-arrow-down-s-line"></i>
                   )}
                 </div>
@@ -87,27 +93,29 @@ function Navbar() {
           })}
         </ul>
         <ul className={styles.icons}>
-          <li className={styles.serchPart} onMouseOver={() => setInputExpand(true)}
-            onMouseLeave={() => setInputExpand(false)}>
+          <li
+            className={styles.serchPart}
+            onMouseOver={() => setInputExpand(true)}
+            onMouseLeave={() => setInputExpand(false)}
+          >
             <input
               type="text"
               placeholder="Search"
               className={inputExpand && styles.expandInput}
             />
-            <i
-              className="ri-search-line"
-            ></i>
+            <i className="ri-search-line"></i>
           </li>
           <li className={styles.userPhoto} onClick={handleClick}>
-            <img
-              src={currentUser.photoURL}
-              alt="User"
-            />
+            <img src={currentUser.photoURL} alt="User" />
           </li>
-          <li className={styles.logOutBtn} >
+          <li className={styles.logOutBtn}>
             <button onClick={logOutUser}>LogOut</button>
           </li>
-          <li>
+          <li
+            onClick={function () {
+              navigate("/likedProducts");
+            }}
+          >
             <i className="ri-heart-3-line"></i>
           </li>
           <li>

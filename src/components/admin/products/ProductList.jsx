@@ -109,6 +109,7 @@ function ProductList() {
                 <th>Product name</th>
                 <th>For Whome</th>
                 <th>Category</th>
+                <th>Collection</th>
                 <th>Theme</th>
                 <th>Price</th>
                 <th>Discount</th>
@@ -130,6 +131,7 @@ function ProductList() {
                     <td>{item.name}</td>
                     <td>{capitalize(item.forWhome)}</td>
                     <td>{item.category}</td>
+                    <td>{item.productCollection}</td>
                     <td>{item.theme}</td>
                     <td>₹{item.price}</td>
                     <td>{item.discount}%</td>

@@ -130,11 +130,11 @@ export const categoryArray_kids = [
   },
   {
     id: 5,
-    name: "boys joggers".toUpperCase().charAt(0) + "girls dresses".slice(1),
+    name: "boys joggers".toUpperCase().charAt(0) + "boys joggers".slice(1),
   },
   {
     id: 6,
-    name: "girls joggers".toUpperCase().charAt(0) + "boys polos".slice(1),
+    name: "girls joggers".toUpperCase().charAt(0) + "girls joggers".slice(1),
   },
   {
     id: 7,
