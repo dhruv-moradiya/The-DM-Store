@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './userList.module.css'
 
-function UserList() {
+function UserList({ data }) {
   return (
     <div className={styles.container}>
       <h3>User list</h3>
@@ -18,24 +18,21 @@ function UserList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td ><div className={styles.imageTD}><img src="https://images.unsplash.com/photo-1711638753947-7a9bb63d6bb3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D" alt="" /></div></td>
-            <td>Dhruv</td>
-            <td>Male</td>
-            <td>26</td>
-            <td>+91 99002 25732</td>
-            <td>dhruv@gmail.com</td>
-            <td>October 25, 2021</td>
-          </tr>
-          <tr>
-            <td ><div className={styles.imageTD}><img src="https://images.unsplash.com/photo-1711638753947-7a9bb63d6bb3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D" alt="" /></div></td>
-            <td>Dhruv</td>
-            <td>Male</td>
-            <td>26</td>
-            <td>+91 99002 25732</td>
-            <td>dhruv@gmail.com</td>
-            <td>October 25, 2021</td>
-          </tr>
+          {data.map((item, index) => {
+            if (item.email !== "gojo@gmail.com") {
+              return (
+                <tr key={index}>
+                  <td ><div className={styles.imageTD}><img src={item.photoURL} alt={item.displayName} /></div></td>
+                  <td>{item.displayName}</td>
+                  <td>{item.gender}</td>
+                  <td>{item.age}</td>
+                  <td>+91 {item.phoneNo}</td>
+                  <td>{item.email}</td>
+                  <td>October 25, 2021</td>
+                </tr>
+              )
+            }
+          })}
         </tbody>
       </table>
     </div>

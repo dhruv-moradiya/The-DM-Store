@@ -6,25 +6,27 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "../../../../context/Firebase";
 import { useClothContext } from "../../../../context/ClothContext";
 
-function ProductCardList({ cetegorySection: categoryID, productList }) {
+function ProductCardList({ productList }) {
   const { currentUser } = useClothContext();
   const [productLikeData, setProductLikeData] = useState(null);
 
-  async function getAllLikedProducts() {
-    const userDocRef = doc(db, "users", currentUser?.uid);
-    const subcollectionRef = collection(userDocRef, "likedProducts");
 
 
-    const querySnapshot = await getDocs(subcollectionRef)
-    const temp = []
-    querySnapshot.forEach((doc) => {
-      temp.push(doc.data())
-    })
-    setProductLikeData(temp)
-    console.log("temp", temp)
-  }
+  useEffect(() => {
+    async function getAllLikedProducts() {
+      const userDocRef = doc(db, "users", currentUser?.uid);
+      const subcollectionRef = collection(userDocRef, "likedProducts");
 
-  useEffect(() => { getAllLikedProducts() }, [])
+      const querySnapshot = await getDocs(subcollectionRef)
+      const temp = []
+      querySnapshot.forEach((doc) => {
+        temp.push(doc.data())
+      })
+      setProductLikeData(temp)
+      console.log("temp", temp)
+    }
+    getAllLikedProducts()
+  }, [])
 
 
   if (!productList)
@@ -52,6 +54,7 @@ function ProductCardList({ cetegorySection: categoryID, productList }) {
             name={item.name}
             price={item.price}
             productLikeData={productLikeData}
+          // getAllLikedProducts={getAllLikedProducts}
           />
         );
       })}

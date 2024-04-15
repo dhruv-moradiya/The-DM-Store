@@ -20,14 +20,17 @@ function ProductCard({
   id,
   category,
   productLikeData,
+  getAllLikedProducts
 }) {
   const [productLike, setProductLike] = useState(false);
 
   const { currentUser } = useClothContext();
   const navigate = useNavigate();
   const isLikedProduct = productLikeData?.find((item) => item.id === id);
+  console.log("isLikedProduct", isLikedProduct)
   console.log('CardId: ', isLikedProduct?.id, "id: ", id)
   console.log("productLikeData: ", productLikeData);
+
   async function handleProductLike(e) {
     e.stopPropagation();
 
@@ -47,6 +50,7 @@ function ProductCard({
 
       await setDoc(documentRef, likedProductObj);
       setProductLike(true);
+      // getAllLikedProducts()
       console.log("Done Like Products.");
     } catch (error) {
       console.log("ERROR:", error);
@@ -64,6 +68,7 @@ function ProductCard({
 
       await deleteDoc(documentRef);
       setProductLike(false);
+      // getAllLikedProducts()
       console.log("Done Dislike Products.");
     } catch (error) {
       console.log("ERROR:", error);
@@ -88,7 +93,7 @@ function ProductCard({
       </div>
       <button
         className={`${styles.likeBtn} ${(productLike || isLikedProduct?.id === id) ? styles.productLike : ""}`}
-        onClick={productLike ? hadleProductDislike : handleProductLike}
+        onClick={isLikedProduct?.id === id ? hadleProductDislike : handleProductLike}
       >
         <i className="ri-heart-3-line"></i>
       </button>

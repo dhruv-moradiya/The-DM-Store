@@ -118,7 +118,9 @@ function Navbar() {
           >
             <i className="ri-heart-3-line"></i>
           </li>
-          <li>
+          <li onClick={function () {
+            navigate('/order')
+          }}>
             <i className="ri-handbag-line"></i>
           </li>
         </ul>

@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./form.module.css";
-import {
-  categoryArray_female,
-  categoryArray_kids,
-  categoryArray_male,
-  collection_kids,
-  collection_men,
-  collection_women,
-  theme_kids,
-  theme_men,
-  theme_women,
-} from "../../../../helpers/helpers";
 import { Timestamp, addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../context/Firebase";
 import Loader from "../../../common/loader/Loader";
+import { categoryOptions, collectionOptions, themeOptions } from "../helperForm";
 
 function ProductAddForm({
   setOpenFrom,
@@ -65,8 +55,8 @@ function ProductAddForm({
             <input type="checkbox" id="XXL" onChange={howManyCheckBox} />
           </div>
           <div>
-            <label htmlFor="XXL">XXL</label>
-            <input type="checkbox" id="XXL" onChange={howManyCheckBox} />
+            <label htmlFor="XXXL">XXXL</label>
+            <input type="checkbox" id="XXXL" onChange={howManyCheckBox} />
           </div>
         </div>
       );
@@ -96,138 +86,6 @@ function ProductAddForm({
       </div>
     );
   }
-  function categoryOptions() {
-    switch (whome) {
-      case "male":
-        return categoryArray_male.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "women":
-        return categoryArray_female.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "kids":
-        return categoryArray_kids.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      default:
-        return [];
-    }
-  }
-  function collectionOptions() {
-    switch (whome) {
-      case "male":
-        return collection_men.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "women":
-        return collection_women.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "kids":
-        return collection_kids.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      default:
-        return [];
-    }
-  }
-  function themeOptions() {
-    switch (whome) {
-      case "male":
-        return theme_men.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "women":
-        return theme_women.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      case "kids":
-        return theme_kids.map((item, index) => {
-          return (
-            <option value={item.name} key={index}>
-              {item.name}
-            </option>
-          );
-        });
-      default:
-        return [];
-    }
-  }
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const name = e.target[0].value;
-  //   const price = e.target[1].value;
-  //   const discount = e.target[2].value;
-  //   const discription = e.target[3].value;
-  //   const imageURL1 = e.target[4].value;
-  //   const imageURL2 = e.target[5].value;
-  //   const forWhome = e.target[6].value;
-  //   const category = e.target[15].value;
-  //   const productCollection = e.target[16].value;
-  //   const theme = e.target[17].value;
-
-  //   try {
-  //     setIsLoding(true)
-  //     await addDoc(collection(db, "products"), {
-  //       name,
-  //       price,
-  //       discount,
-  //       discription,
-  //       imageURL1,
-  //       imageURL2,
-  //       forWhome,
-  //       chekedCheckBox,
-  //       category,
-  //       productCollection,
-  //       theme,
-  //       date: Timestamp.now(),
-  //     });
-  //     setMessage("Product added successfully");
-  //     productListData()
-  //     setIsVisible(true);
-  //     setIsLoding(false);
-  //     e.target.reset();
-  //   } catch (error) {
-  //     console.log(error);
-  //     setError("Something went worng, Please try again.");
-  //     setIsVisible(true);
-  //     setIsLoding(false);
-  //   }
-  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -335,17 +193,17 @@ function ProductAddForm({
 
         <div className={styles.inputContainer}>
           <label htmlFor="category">Product category </label>
-          <select id="category">{categoryOptions()}</select>
+          <select id="category">{categoryOptions(whome)}</select>
         </div>
 
         <div className={styles.inputContainer}>
           <label htmlFor="productCollection">Product productCollection </label>
-          <select id="productCollection">{collectionOptions()}</select>
+          <select id="productCollection">{collectionOptions(whome)}</select>
         </div>
 
         <div className={styles.inputContainer}>
           <label htmlFor="theme">Product theme </label>
-          <select id="theme">{themeOptions()}</select>
+          <select id="theme">{themeOptions(whome)}</select>
         </div>
 
         <button className={styles.closeBtn} onClick={() => setOpenFrom(false)}>

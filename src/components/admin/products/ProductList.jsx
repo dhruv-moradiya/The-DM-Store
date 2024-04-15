@@ -14,11 +14,13 @@ import Loader from "../../common/loader/Loader";
 import { capitalize, getDate } from "./form/helper";
 import Filter from "./filter/Filter";
 import DeleteProduct from "./deleteProduct/DeleteProduct";
+import UpdateForm from "./updateProductDetails/UpdateForm";
 
 function ProductList() {
   const [productList, setProductList] = useState(null);
   const [filterData, setFilterData] = useState(null);
   const [openFrom, setOpenFrom] = useState(false);
+  const [openUpdateFrom, setOpenUpdateFrom] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -52,10 +54,7 @@ function ProductList() {
   async function productListData() {
     let productTemp = [];
     try {
-      const querySnapshot = await getDocs(
-        collection(db, "products"),
-        orderBy("date", "asc")
-      );
+      const querySnapshot = await getDocs(collection(db, "products"));
       querySnapshot.forEach((doc) => {
         productTemp.push(doc.data());
       });
@@ -84,7 +83,7 @@ function ProductList() {
             <PopUp
               hidePopOver={hidePopOver}
               isVisible={isVisible}
-              status="success"
+              status={`${error ? 'error' : 'success'}`}
               message={message}
             />
           ))}
@@ -109,8 +108,9 @@ function ProductList() {
                 <th>Product name</th>
                 <th>For Whome</th>
                 <th>Category</th>
-                <th>Collection</th>
+                {/* <th>Collection</th> */}
                 <th>Theme</th>
+                <th>Dics</th>
                 <th>Price</th>
                 <th>Discount</th>
                 <th>Update</th>
@@ -133,10 +133,18 @@ function ProductList() {
                     <td>{item.category}</td>
                     <td>{item.productCollection}</td>
                     <td>{item.theme}</td>
+                    {/* <td>{item.discription}</td> */}
                     <td>₹{item.price}</td>
                     <td>{item.discount}%</td>
                     <td>
-                      <i className="ri-brush-2-fill"></i>
+                      <i
+                        className="ri-brush-2-fill"
+                        onClick={() => {
+                          setOpenUpdateFrom(true);
+                          setIdProduct(item.id)
+                          window.scroll(0, 0)
+                        }}
+                      ></i>
                     </td>
                     <td>
                       <i
@@ -159,6 +167,19 @@ function ProductList() {
             setMessage={setMessage}
             setIsLoding={setIsLoding}
             isLoading={isLoading}
+            productListData={productListData}
+          />
+        )}
+        {openUpdateFrom && (
+          <UpdateForm
+            setOpenUpdateFrom={setOpenUpdateFrom}
+            setIsVisible={setIsVisible}
+            setError={setError}
+            setMessage={setMessage}
+            setIsLoding={setIsLoding}
+            isLoading={isLoading}
+            idProduct={idProduct}
+            productList={productList}
             productListData={productListData}
           />
         )}
