@@ -206,6 +206,7 @@ function UpdateForm({
     setIsLoding(true)
     try {
       await setDoc(doc(db, 'products', idProduct), {
+        id: idProduct,
         name: productName,
         price,
         discount,

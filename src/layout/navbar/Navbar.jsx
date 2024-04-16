@@ -101,7 +101,7 @@ function Navbar() {
             <input
               type="text"
               placeholder="Search"
-              className={inputExpand && styles.expandInput}
+              className={inputExpand ? styles.expandInput : ''}
             />
             <i className="ri-search-line"></i>
           </li>

@@ -83,13 +83,13 @@ function ProductList() {
             <PopUp
               hidePopOver={hidePopOver}
               isVisible={isVisible}
-              status={`${error ? 'error' : 'success'}`}
+              status={`${error ? "error" : "success"}`}
               message={message}
             />
           ))}
 
         <div className={styles.formBtns}>
-          <Filter filterData={filterData} setFilterData={setFilterData} />
+          {/* <Filter filterData={filterData} setFilterData={setFilterData} /> */}
           <button onClick={() => setOpenFrom(true)}>
             <span>
               <i className="ri-apps-2-add-line"></i>
@@ -99,23 +99,66 @@ function ProductList() {
         </div>
         <h3>Product List</h3>
         {!productList ? (
-          <Loader size="30px" color="black" />
+          <Loader
+            size="30px"
+            color="black"
+            containerWidth="100%"
+            containerHeight="50vh"
+          />
         ) : (
           <table className={styles.tableProductList}>
             <thead className={styles.productListThead}>
               <tr>
                 <th>Product photo</th>
                 <th>Product name</th>
-                <th>For Whome</th>
-                <th>Category</th>
-                {/* <th>Collection</th> */}
-                <th>Theme</th>
-                <th>Dics</th>
-                <th>Price</th>
-                <th>Discount</th>
+                <th>
+                  For Whome <i className="ri-filter-2-fill"></i>
+                </th>
+                <th>
+                  Category <i className="ri-filter-2-fill"></i>
+                </th>
+                <th>
+                  Collection <i className="ri-filter-2-fill"></i>
+                </th>
+                <th>
+                  Theme <i className="ri-filter-2-fill"></i>
+                </th>
+                {/* <th>Dics</th> */}
+                <th>
+                  Price <i className="ri-filter-2-fill"></i>
+                </th>
+                <th>
+                  Discount <i className="ri-filter-2-fill"></i>
+                </th>
                 <th>Update</th>
                 <th>Delete</th>
                 <th>Product Adding date</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>
+                  <input type="text" />
+                </th>
+                <th>
+                  <input type="text" />
+                </th>
+                <th>
+                  <input type="text" />
+                </th>
+                <th>
+                  <input type="text" />
+                </th>
+                {/* <th>Dics</th> */}
+                <th>
+                  <input type="text" />
+                </th>
+                <th>
+                  <input type="text" />
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody className={styles.productListTbody}>
@@ -141,8 +184,8 @@ function ProductList() {
                         className="ri-brush-2-fill"
                         onClick={() => {
                           setOpenUpdateFrom(true);
-                          setIdProduct(item.id)
-                          window.scroll(0, 0)
+                          setIdProduct(item.id);
+                          window.scroll(0, 0);
                         }}
                       ></i>
                     </td>

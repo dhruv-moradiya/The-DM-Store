@@ -24,7 +24,7 @@ function CategoryProducts() {
     });
     setProductList(productTemp);
   }
-  console.log("productList:", productList);
+  // console.log("productList:", productList);
   async function productsDataGet() {
     const productRef = collection(db, "products");
 

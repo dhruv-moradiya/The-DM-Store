@@ -2,33 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./productList.module.css";
 import ProductCard from "./ProductCard";
 import Loader from "../../../common/loader/Loader";
-import { collection, doc, getDocs } from "firebase/firestore";
-import { db } from "../../../../context/Firebase";
-import { useClothContext } from "../../../../context/ClothContext";
 
 function ProductCardList({ productList }) {
-  const { currentUser } = useClothContext();
-  const [productLikeData, setProductLikeData] = useState(null);
-
-
-
-  useEffect(() => {
-    async function getAllLikedProducts() {
-      const userDocRef = doc(db, "users", currentUser?.uid);
-      const subcollectionRef = collection(userDocRef, "likedProducts");
-
-      const querySnapshot = await getDocs(subcollectionRef)
-      const temp = []
-      querySnapshot.forEach((doc) => {
-        temp.push(doc.data())
-      })
-      setProductLikeData(temp)
-      console.log("temp", temp)
-    }
-    getAllLikedProducts()
-  }, [])
-
-
   if (!productList)
     return (
       <div className={styles.list}>
@@ -53,8 +28,6 @@ function ProductCardList({ productList }) {
             imageURL2={item.imageURL2}
             name={item.name}
             price={item.price}
-            productLikeData={productLikeData}
-          // getAllLikedProducts={getAllLikedProducts}
           />
         );
       })}

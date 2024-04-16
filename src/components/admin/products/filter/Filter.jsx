@@ -116,6 +116,7 @@ function Filter({ filterData, setFilterData }) {
         FilData.push(doc.data());
         console.log("new", doc.data());
       });
+      console.log("FilData: ", FilData);
       setFilterData(FilData)
     }
     try {
@@ -170,6 +171,7 @@ function Filter({ filterData, setFilterData }) {
   useEffect(() => {
     filterDataFun();
   }, [whome, category, theme, price]);
+
   return (
     <form className={styles.container}>
       <div>

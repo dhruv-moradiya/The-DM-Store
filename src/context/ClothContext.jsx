@@ -2,7 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
 import { auth, db } from "./Firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
 
 const clothContext = createContext();
 
@@ -10,6 +10,7 @@ export const ClothContextProvider = ({ children }) => {
   const [section, setSection] = useState("MEN");
   const [currentUser, setCurrentUser] = useState(null);
   const [allProductData, setAllProductData] = useState(null);
+  const [productLikeData, setProductLikeData] = useState(null);
 
   function forWhome() {
     switch (section) {
@@ -39,6 +40,26 @@ export const ClothContextProvider = ({ children }) => {
     }
   }
 
+  async function getAllLikedProducts() {
+    if (!currentUser?.uid) {
+      return;
+    }
+
+    const userDocRef = doc(db, "users", currentUser.uid);
+    const subcollectionRef = collection(userDocRef, "likedProducts");
+
+    const querySnapshot = await getDocs(subcollectionRef);
+    const temp = [];
+    querySnapshot.forEach((doc) => {
+      temp.push(doc.data());
+    });
+    setProductLikeData(temp);
+  }
+
+  useEffect(() => {
+    getAllLikedProducts();
+  }, [currentUser]);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
@@ -46,7 +67,9 @@ export const ClothContextProvider = ({ children }) => {
       }
       setCurrentUser(user);
     });
-  }, []);
+  }, [auth]);
+
+
 
   console.log("currentUser: ", currentUser);
   return (
@@ -58,6 +81,8 @@ export const ClothContextProvider = ({ children }) => {
         setSection,
         currentUser,
         setCurrentUser,
+        productLikeData,
+        getAllLikedProducts
       }}
     >
       {children}

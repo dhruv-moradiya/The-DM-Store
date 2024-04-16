@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./productList.module.css";
 import { useClothContext } from "../../../../context/ClothContext";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
-  getDocs,
   setDoc,
 } from "firebase/firestore";
 import { db } from "../../../../context/Firebase";
@@ -19,17 +17,18 @@ function ProductCard({
   price,
   id,
   category,
-  productLikeData,
-  getAllLikedProducts
 }) {
-  const [productLike, setProductLike] = useState(false);
-
-  const { currentUser } = useClothContext();
   const navigate = useNavigate();
-  const isLikedProduct = productLikeData?.find((item) => item.id === id);
-  console.log("isLikedProduct", isLikedProduct)
-  console.log('CardId: ', isLikedProduct?.id, "id: ", id)
-  console.log("productLikeData: ", productLikeData);
+  const { currentUser, productLikeData, getAllLikedProducts } = useClothContext();
+  const [productLike, setProductLike] = useState(productLikeData?.find((item) => item.id === id) ? true : false);
+
+  if (!productLikeData) return null
+
+  let isLikedProduct = false;
+
+  if (productLikeData.find((item) => item.id === id)) {
+    isLikedProduct = true
+  }
 
   async function handleProductLike(e) {
     e.stopPropagation();
@@ -50,8 +49,8 @@ function ProductCard({
 
       await setDoc(documentRef, likedProductObj);
       setProductLike(true);
-      // getAllLikedProducts()
-      console.log("Done Like Products.");
+      getAllLikedProducts()
+      console.log("Product Like.");
     } catch (error) {
       console.log("ERROR:", error);
     }
@@ -60,7 +59,6 @@ function ProductCard({
   async function hadleProductDislike(e) {
     e.stopPropagation();
 
-
     try {
       const userDocRef = doc(db, "users", currentUser.uid);
       const subcollectionRef = collection(userDocRef, "likedProducts");
@@ -68,8 +66,8 @@ function ProductCard({
 
       await deleteDoc(documentRef);
       setProductLike(false);
-      // getAllLikedProducts()
-      console.log("Done Dislike Products.");
+      getAllLikedProducts()
+      console.log("Product Dislike.");
     } catch (error) {
       console.log("ERROR:", error);
     }
@@ -92,8 +90,8 @@ function ProductCard({
         <p>MRP incl. if all taxes</p>
       </div>
       <button
-        className={`${styles.likeBtn} ${(productLike || isLikedProduct?.id === id) ? styles.productLike : ""}`}
-        onClick={isLikedProduct?.id === id ? hadleProductDislike : handleProductLike}
+        className={`${styles.likeBtn} ${(productLike || isLikedProduct) ? styles.productLike : ""}`}
+        onClick={isLikedProduct || productLike ? hadleProductDislike : handleProductLike}
       >
         <i className="ri-heart-3-line"></i>
       </button>
