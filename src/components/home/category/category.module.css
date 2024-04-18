@@ -9,8 +9,8 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  place-content: center;
-  gap: 20px;
+  place-items: center;
+  gap: 20px !important;
   padding: 0 30px;
 }
 
@@ -41,6 +41,11 @@
 
 @media screen and (max-width: 700px) {
   .innerContainer {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    padding: 0 15px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .containerCard {
+    height: 200px;
+    width: 180px;
   }
 }

@@ -3,7 +3,11 @@ import styles from "./form.module.css";
 import { Timestamp, addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../context/Firebase";
 import Loader from "../../../common/loader/Loader";
-import { categoryOptions, collectionOptions, themeOptions } from "../helperForm";
+import {
+  categoryOptions,
+  collectionOptions,
+  themeOptions,
+} from "../helperForm";
 
 function ProductAddForm({
   setOpenFrom,
@@ -14,15 +18,61 @@ function ProductAddForm({
   isLoading,
   productListData,
 }) {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [discription, setDiscription] = useState("");
+  const [imageURL1, setImageURL1] = useState("");
+  const [imageURL2, setImageURL2] = useState("");
   const [whome, setWhome] = useState("male");
+  const [productCategory, setProductCategory] = useState("");
   const [chekedCheckBox, setChekedCheckBox] = useState([]);
-
+  const [productCollection, setProductCollection] = useState("");
+  const [theme, setTheme] = useState("");
+  function fildsReset() {
+    setName('')
+    setPrice('')
+    setDiscount('')
+    setDiscription('')
+    setImageURL1('')
+    setImageURL2('')
+    setWhome('')
+    setProductCategory('')
+    setProductCollection('')
+    setTheme('')
+  }
   function howManyCheckBox(e) {
     if (e.target.checked) {
       setChekedCheckBox([...chekedCheckBox, e.target.id]);
     }
   }
   function renderSizeBox() {
+    if (productCategory === "Sneakers") {
+      return (
+        <div className={styles.sizeBox}>
+          <div>
+            <label htmlFor="UK 4">UK 4</label>
+            <input type="checkbox" id="UK 4" onChange={howManyCheckBox} />
+          </div>
+          <div>
+            <label htmlFor="UK 5">UK 5</label>
+            <input type="checkbox" id="UK 5" onChange={howManyCheckBox} />
+          </div>
+          <div>
+            <label htmlFor="UK 6">UK 6</label>
+            <input type="checkbox" id="UK 6" onChange={howManyCheckBox} />
+          </div>
+          <div>
+            <label htmlFor="UK 7">UK 7</label>
+            <input type="checkbox" id="UK 7" onChange={howManyCheckBox} />
+          </div>
+          <div>
+            <label htmlFor="UK 8">UK 8</label>
+            <input type="checkbox" id="UK 8" onChange={howManyCheckBox} />
+          </div>
+        </div>
+      );
+    }
     if (whome === "male" || whome === "women") {
       return (
         <div className={styles.sizeBox}>
@@ -88,18 +138,8 @@ function ProductAddForm({
   }
 
   async function handleSubmit(e) {
+    console.log("event: ", e);
     e.preventDefault();
-    const name = e.target[0].value;
-    const price = Number(e.target[1].value);
-    const discount = Number(e.target[2].value);
-    const discription = e.target[3].value;
-    const imageURL1 = e.target[4].value;
-    const imageURL2 = e.target[5].value;
-    const forWhome = e.target[6].value;
-    const category = (whome === 'male' || whome === 'women') ? e.target[15].value : e.target[12].value;
-    const productCollection = (whome === 'male' || whome === 'women') ? e.target[16].value : e.target[13].value;
-    const theme = (whome === 'male' || whome === 'women') ? e.target[17].value : e.target[14].value;
-
     let productobj = {
       name,
       price,
@@ -107,24 +147,24 @@ function ProductAddForm({
       discription,
       imageURL1,
       imageURL2,
-      forWhome,
+      forWhome: whome,
       chekedCheckBox,
-      category,
+      category: productCategory,
       productCollection,
       theme,
       date: Timestamp.now(),
-    }
+    };
     try {
-      setIsLoding(true)
-      // await addDoc(collection(db, "products"), productobj);
-      const newDocRef = await addDoc(collection(db, 'products'), productobj);
-      await setDoc(newDocRef, { id: newDocRef.id }, { merge: true })
+      setIsLoding(true);
+      const newDocRef = await addDoc(collection(db, "products"), productobj);
+      await setDoc(newDocRef, { id: newDocRef.id }, { merge: true });
       console.log("Document added with ID:", newDocRef.id);
       setMessage("Product added successfully");
-      productListData()
+      productListData();
       setIsVisible(true);
       setIsLoding(false);
       e.target.reset();
+      fildsReset()
     } catch (error) {
       console.log(error);
       setError("Something went worng, Please try again.");
@@ -139,12 +179,26 @@ function ProductAddForm({
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.inputContainer}>
           <label htmlFor="name">Product name </label>
-          <input type="text" id="name" placeholder="Product name" required />
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Product name"
+            required
+          />
         </div>
 
         <div className={styles.inputContainer}>
           <label htmlFor="price">Product price </label>
-          <input type="text" id="price" placeholder="Product price" required />
+          <input
+            type="text"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Product price"
+            required
+          />
         </div>
 
         <div className={styles.inputContainer}>
@@ -152,6 +206,8 @@ function ProductAddForm({
           <input
             type="text"
             id="discount"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
             placeholder="Product discount"
             required
           />
@@ -162,6 +218,8 @@ function ProductAddForm({
           <textarea
             type="text"
             id="discription"
+            value={discription}
+            onChange={(e) => setDiscription(e.target.value)}
             placeholder="Product discription"
             required
           ></textarea>
@@ -169,12 +227,26 @@ function ProductAddForm({
 
         <div className={styles.inputContainer}>
           <label htmlFor="image1">Product image 1 </label>
-          <input type="text" id="image1" placeholder="Product image" required />
+          <input
+            type="text"
+            id="image1"
+            value={imageURL1}
+            onChange={(e) => setImageURL1(e.target.value)}
+            placeholder="Product image"
+            required
+          />
         </div>
 
         <div className={styles.inputContainer}>
           <label htmlFor="image2">Product image 2 </label>
-          <input type="text" id="image2" placeholder="Product image" required />
+          <input
+            type="text"
+            id="image2"
+            value={imageURL2}
+            onChange={(e) => setImageURL2(e.target.value)}
+            placeholder="Product image"
+            required
+          />
         </div>
 
         <div className={styles.inputContainer}>
@@ -186,31 +258,48 @@ function ProductAddForm({
           </select>
         </div>
 
+        <div className={styles.inputContainer}>
+          <label htmlFor="category">Product category </label>
+          <select
+            id="category"
+            onChange={(e) => setProductCategory(e.target.value)}
+          >
+            {categoryOptions(whome)}
+          </select>
+        </div>
+
         <div className={styles.sizeChart}>
           <h3>Size</h3>
           {renderSizeBox()}
         </div>
 
         <div className={styles.inputContainer}>
-          <label htmlFor="category">Product category </label>
-          <select id="category">{categoryOptions(whome)}</select>
-        </div>
-
-        <div className={styles.inputContainer}>
           <label htmlFor="productCollection">Product productCollection </label>
-          <select id="productCollection">{collectionOptions(whome)}</select>
+          <select
+            id="productCollection"
+            value={productCollection}
+            onChange={(e) => setProductCollection(e.target.value)}
+          >
+            {collectionOptions(whome)}
+          </select>
         </div>
 
         <div className={styles.inputContainer}>
           <label htmlFor="theme">Product theme </label>
-          <select id="theme">{themeOptions(whome)}</select>
+          <select
+            id="theme"
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+          >
+            {themeOptions(whome)}
+          </select>
         </div>
 
         <button className={styles.closeBtn} onClick={() => setOpenFrom(false)}>
           <i className="ri-close-fill"></i>
         </button>
         <button className={styles.btnAdd} type="submit">
-          {isLoading ? <Loader size='14px' color='black' /> : 'Add Product'}
+          {isLoading ? <Loader size="14px" color="black" /> : "Add Product"}
         </button>
       </form>
     </div>
@@ -218,12 +307,6 @@ function ProductAddForm({
 }
 
 export default ProductAddForm;
-
-
-
-
-
-
 
 // try {
 //   const productRef = collection(db, "products");
@@ -285,4 +368,3 @@ export default ProductAddForm;
 // } catch (error) {
 //   console.log(error);
 // }
-

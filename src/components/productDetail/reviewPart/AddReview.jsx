@@ -58,51 +58,6 @@ function AddReview({
     }
   }
 
-  // async function handleReview(e) {
-  //   e.preventDefault();
-  //   const reviewObj = {
-  //     id: productID,
-  //     userName: currentUser.displayName,
-  //     userPhoto: currentUser.photoURL,
-  //     rating,
-  //     content,
-  //     date: Timestamp.now(),
-  //   };
-
-  //   try {
-  //     setIsLoding(true);
-  //     const userDocRef = doc(db, "users", currentUser.uid);
-  //     const subcollectionRef = collection(userDocRef, "review");
-  //     const documentRef = doc(subcollectionRef, productID);
-
-  //     await setDoc(documentRef, reviewObj);
-  //     setIsVisible(true);
-  //     setMessage("Review added successfully");
-  //     setContent("");
-  //     getAllReview()
-  //   } catch (error) {
-  //     console.log(error);
-  //     setError(error.message);
-  //     setIsVisible(true);
-  //     setMessage("Something went Wrong.");
-  //   } finally {
-  //     setIsLoding(false);
-  //   }
-  // }
-  // async function getAllReview() {
-  //   try {
-  //     const userRef = doc(db, "users", currentUser.uid);
-  //     const subcollectionRef = collection(userRef, 'review')
-  //     const snapshot = await getDocs(subcollectionRef);
-  //     const reviews = [];
-  //     snapshot.forEach((doc) => {
-  //       reviews.push(doc.data());
-  //     });
-  //     setData(reviews)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   async function getAllReview() {
     try {
       const reviewRef = collection(db, "review");

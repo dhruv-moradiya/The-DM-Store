@@ -10,34 +10,6 @@ import { useClothContext } from '../context/ClothContext'
 
 function Home() {
   const { section, productListData, allProductData } = useClothContext()
-  // const [allProductData, setAllProductData] = useState(null)
-  // function forWhome() {
-  //   switch (section) {
-  //     case 'MEN':
-  //       return 'male'
-  //     case 'WOMEN':
-  //       return 'women'
-  //     case 'KIDS':
-  //       return 'kids'
-  //     default:
-  //       break;
-  //   }
-  // }
-  // async function productListData() {
-  //   const productRef = collection(db, 'products')
-  //   const temp = []
-  //   try {
-  //     const q = query(productRef, where('forWhome', '==', `${forWhome()}`))
-  //     const querySnapshot = await getDocs(q)
-  //     querySnapshot.forEach(doc => {
-  //       temp.push(doc.data())
-  //     })
-  //     setAllProductData(temp)
-  //     console.log("temp: ", temp)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   useEffect(() => {
     productListData();

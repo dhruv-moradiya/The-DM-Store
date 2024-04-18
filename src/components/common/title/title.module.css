@@ -2,11 +2,17 @@
   width: 100%;
   text-align: center;
   margin: 45px 0;
-  font-size: 16px;
   font-weight: 800;
 }
 
 h2 {
-  margin: 0;
   color: #282c3f;
+  font-size: 22px;
+}
+
+@media screen and (max-width: 640px) {
+  .container h2 {
+    margin: 0 !important;
+    font-size: 16px;
+  }
 }

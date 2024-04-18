@@ -1,8 +1,11 @@
 import React from 'react'
+import LikeProductCardList from '../components/likeProduct/LikeProductCardList'
 
 function LikedProducts() {
   return (
-    <div>LikedProducts</div>
+    <div>
+      <LikeProductCardList />
+    </div>
   )
 }
 

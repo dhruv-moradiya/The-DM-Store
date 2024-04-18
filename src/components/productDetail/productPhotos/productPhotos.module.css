@@ -17,3 +17,13 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media screen and (max-width: 640px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .container div {
+    height: 300px;
+  }
+}

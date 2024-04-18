@@ -36,6 +36,7 @@
 .formContainer .addReview {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -46,7 +47,8 @@
 .addReview > div form {
   display: flex;
   align-items: center;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .addReview > div form select {
@@ -83,8 +85,9 @@
 }
 
 .userPhoto {
-  width: 60px;
-  height: 60px;
+  /* flex: 1 !important; */
+  width: 60px !important;
+  height: 60px !important;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -96,6 +99,7 @@
 }
 
 .reviweDetail {
+  flex: 2;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -105,6 +109,7 @@
 .userName_rating {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 

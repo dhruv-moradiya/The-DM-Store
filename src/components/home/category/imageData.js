@@ -2,7 +2,7 @@ export function categoryImage(section) {
   switch (section) {
     case 'MEN':
       return [
-        "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Big-Tile3_NPAPKjt.jpg?format=webp&w=480&dpr=1.3",
+        "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Men-Big-Tile-OST_hdv3dNd.jpg?format=webp&w=480&dpr=1.3",
         "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Men-Website-tile-big-one_2_Puc2oEu.jpg?format=webp&w=480&dpr=1.3",
         "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/sneakers_2_n6xmNMk.jpg?format=webp&w=480&dpr=1.3",
         "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Small-Tile-310_1_tb3XNL1.jpg?format=webp&w=480&dpr=1.3",

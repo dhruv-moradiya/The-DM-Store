@@ -43,12 +43,16 @@ function ProductDetail() {
     );
   return (
     <>
-      <div style={{ display: "flex", gap: "4px", padding: "20px" }}>
+      <div className="productDetailPageContainer">
         <ProductPhotos
           imageURL1={data[0].imageURL1}
           imageURL2={data[0].imageURL2}
         />
-        <ProductDetailPart data={data[0]} />
+        <ProductDetailPart
+          data={data[0]}
+          setIsVisible={setIsVisible}
+          setMessage={setMessage}
+        />
       </div>
       <AddReview
         productID={productID}

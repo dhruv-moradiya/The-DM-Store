@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./productDetailPart.module.css";
 
-function ProductDetailPart({ data }) {
+function ProductDetailPart({ data, setIsVisible, setMessage }) {
+
+  const copyUrlToClipboard = () => {
+    setIsVisible(true)
+    setMessage('Copy to clipboard')
+    navigator.clipboard.writeText(window.location.href);
+  };
   return (
     <div className={styles.container}>
       <h3 className={styles.name}>{data.name}</h3>
@@ -38,7 +44,7 @@ function ProductDetailPart({ data }) {
             <i className="ri-twitter-fill"></i>,
             <i className="ri-instagram-line"></i>,
           ].map((item, index) => {
-            return <li key={index}>{item}</li>;
+            return <li key={index} onClick={copyUrlToClipboard}>{item}</li>;
           })}
         </ul>
       </div>

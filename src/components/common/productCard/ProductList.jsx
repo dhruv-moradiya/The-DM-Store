@@ -14,6 +14,7 @@ function ProductList({ title, allProductData }) {
           return (
             <ProductCard
               key={index}
+              id={item.id}
               image={item.imageURL1}
               name={item.name}
               category={item.category}

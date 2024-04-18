@@ -15,7 +15,7 @@ function CategoryProducts() {
 
   let filterStr = category.split("-");
   const what = filterByWhat(filterStr).type;
-
+  console.log("SOOO", filterByType(what, Number(filterStr[1]), section).name);
   async function sanpShot(q) {
     let productTemp = [];
     const querySnapShot = await getDocs(q);
@@ -24,7 +24,7 @@ function CategoryProducts() {
     });
     setProductList(productTemp);
   }
-  // console.log("productList:", productList);
+
   async function productsDataGet() {
     const productRef = collection(db, "products");
 

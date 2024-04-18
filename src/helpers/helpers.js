@@ -107,7 +107,7 @@ export const categoryArray_female = [
   },
   {
     id: 11,
-    name: "sneakers".toUpperCase().charAt(0) + "sneakers".slice(1),
+    name: "sneakers".toUpperCase().charAt(0) + "Sneakers".slice(1),
   },
 ];
 

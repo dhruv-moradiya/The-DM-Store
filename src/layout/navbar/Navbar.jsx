@@ -9,12 +9,14 @@ import { auth } from "../../context/Firebase";
 function Navbar() {
   const [inputExpand, setInputExpand] = useState(false);
   const { section, setSection, currentUser } = useClothContext();
+  const [sideBarOpen, setSideBarOpen] = useState(false);
   const [categoryArray, setCategoryArray] = useState([
     "STREETWEAR EDIT",
     "TOPWEAR",
     "BOTTOMWEAR",
     "SNEAKERS",
   ]);
+  console.log("sideBarOpen: ", sideBarOpen);
   const navigate = useNavigate();
   useEffect(() => {
     if (section === "MEN") {
@@ -68,6 +70,16 @@ function Navbar() {
           );
         })}
       </ul>
+      <NavbarTopForMobile navigate={navigate} setSideBarOpen={setSideBarOpen} />
+      <MobileSideBar
+        sideBarOpen={sideBarOpen}
+        setSideBarOpen={setSideBarOpen}
+        currentUser={currentUser}
+        logOutUser={logOutUser}
+        categoryArray={categoryArray}
+        section={section}
+        getDropDownItems={getDropDownItems}
+      />
 
       <div className={styles.navBottomContainer}>
         <ul className={styles.navBottom}>
@@ -92,7 +104,7 @@ function Navbar() {
             );
           })}
         </ul>
-        <ul className={styles.icons}>
+        <ul className={`${styles.icons} ${styles.mobileIcons}`}>
           <li
             className={styles.serchPart}
             onMouseOver={() => setInputExpand(true)}
@@ -101,7 +113,7 @@ function Navbar() {
             <input
               type="text"
               placeholder="Search"
-              className={inputExpand ? styles.expandInput : ''}
+              className={inputExpand ? styles.expandInput : ""}
             />
             <i className="ri-search-line"></i>
           </li>
@@ -118,15 +130,120 @@ function Navbar() {
           >
             <i className="ri-heart-3-line"></i>
           </li>
-          <li onClick={function () {
-            navigate('/order')
-          }}>
+          <li
+            onClick={function () {
+              navigate("/order");
+            }}
+          >
             <i className="ri-handbag-line"></i>
           </li>
         </ul>
       </div>
+      <NavBottomContainerMobile section={section} setSection={setSection} />
     </nav>
   );
 }
 
 export default Navbar;
+
+// Components for NavBar
+
+function NavbarTopForMobile({ navigate, setSideBarOpen }) {
+  function iconsRender() {
+    return (
+      <ul className={styles.navTopMobile}>
+        <li
+          onClick={function () {
+            navigate("/likedProducts");
+          }}
+        >
+          <i className="ri-heart-3-line"></i>
+        </li>
+        <li
+          onClick={function () {
+            navigate("/order");
+          }}
+        >
+          <i className="ri-handbag-line"></i>
+        </li>
+      </ul>
+    );
+  }
+  return (
+    <div className={`${styles.navTopMobile}`}>
+      <button onClick={() => setSideBarOpen(true)}>
+        <i className="ri-menu-line"></i>
+      </button>
+      <h2>The Dm Store</h2>
+      {iconsRender()}
+    </div>
+  );
+}
+
+function MobileSideBar({
+  sideBarOpen,
+  setSideBarOpen,
+  logOutUser,
+  categoryArray,
+  section,
+  getDropDownItems,
+  currentUser,
+}) {
+  return (
+    <div
+      className={`${styles.mobileSideBar} ${sideBarOpen ? styles.showSideBar : ""
+        }`}
+    >
+      <div className={styles.photo_Btn}>
+        <div className={styles.userPhoto}>
+          <img src={currentUser.photoURL} alt="User" />
+        </div>
+        <button className={styles.logoutBtn} onClick={logOutUser}>
+          LogOut
+        </button>
+      </div>
+      <input type="text" placeholder="Search" />
+      <ul>
+        {categoryArray.map((item, index) => {
+          const dropDownItems = getDropDownItems(item, section);
+          return (
+            <li key={index}>
+              <div className={styles.innerCategoryName}>
+                <p>{item}</p>
+                {/* {item !== "SNEAKERS" && item !== "BOY" && item !== "GIRL" && (
+              <i className="ri-arrow-down-s-line"></i>
+            )} */}
+              </div>
+              {item !== "SNEAKERS" && (
+                <ul className={styles.innerCategory}>
+                  {dropDownItems.map((item, index) => {
+                    return <li key={index}>{item}</li>;
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <button className={styles.closeBtn} onClick={() => setSideBarOpen(false)}>
+        <i className="ri-close-fill"></i>
+      </button>
+    </div>
+  );
+}
+
+function NavBottomContainerMobile({ section, setSection }) {
+  return <div className={styles.navBottomContainerMobile}>
+    {["MEN", "WOMEN", "KIDS"].map((item, index) => {
+      return (
+        <button
+          key={index}
+          className={section === item ? styles.activeCategotyTab : ""}
+          onClick={() => setSection(item)}
+        >
+          {item}
+        </button>
+      );
+    })}
+  </div>
+}

@@ -43,7 +43,7 @@ hr {
   border-radius: 4px;
   padding: 4px 10px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 14px !important;
 }
 
 .quantityPart {
@@ -151,4 +151,28 @@ hr {
 
 .description p {
   font-size: 14px;
+}
+
+@media screen and (max-width: 1040px) {
+  .container {
+    gap: 15px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .price h4,
+  .checkBoxes li {
+    font-size: 14px !important;
+  }
+
+  .price p {
+    font-size: 13px;
+  }
+
+  .btns button {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
 }

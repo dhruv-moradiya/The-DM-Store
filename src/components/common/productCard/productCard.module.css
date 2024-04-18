@@ -14,9 +14,10 @@
 .cardContainer {
   /* width: 300px; */
   background-color: #fcfcfc;
-  border-radius: 30px;
+  border-radius: 14px;
   overflow: hidden;
   margin: 0 30px;
+  cursor: pointer;
 }
 
 .content {
@@ -50,4 +51,10 @@
   padding: 3.5px 0;
   font-size: 14.5px;
   color: #a6a6a6;
+}
+
+@media screen and (max-width: 1000px) {
+  .imageContainer {
+    height: 350px;
+  }
 }

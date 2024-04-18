@@ -29,7 +29,7 @@ function CategoryList() {
   console.log(categoryName2()[3].id)
   return (
     <div className="container">
-      <Title title="category (分类)" />
+      <Title title="category" />
       <div className={styles.innerContainer}>
         {categoryImage(section).map((item, index) => {
           return (

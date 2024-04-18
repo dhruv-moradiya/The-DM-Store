@@ -10,3 +10,21 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media screen and (max-width: 1040px) {
+  .heroImage {
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .heroImage {
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .heroImage {
+    height: 250px;
+  }
+}
