@@ -29,7 +29,6 @@ function SignUp() {
     const passwordConfime = e.target[6].value;
     const fileInput = e.target[7];
     const file = fileInput.files[0];
-
     if (password !== passwordConfime) {
       setError("Password and confirmation password do not match");
     } else {
@@ -51,6 +50,7 @@ function SignUp() {
           null,
           (err) => {
             setError(err.message);
+            console.log(err.message)
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then(
@@ -72,12 +72,14 @@ function SignUp() {
                   photoURL: downloadURL,
                   time: Timestamp.now(),
                 });
+                navigate('/')
               }
             );
           }
         );
       } catch (error) {
         setError("Something went wrong, Please try again!");
+        console.log(error.message)
       }
     }
   }

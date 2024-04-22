@@ -3,41 +3,37 @@ export function getDropDownItems(item, section) {
     case "TOPWEAR":
       if (section === 'MEN') {
         return [
-          "Oversized T-shirts",
-          "All T-Shirts",
-          "All Shirts",
-          "Jackets",
-          "Hoodies & Sweatshirts",
+          "Oversized t-shirts",
+          "T-Shirt",
+          "Shirts",
+          "Jakets",
+          "Hoodies",
+          "Sweatshits"
         ];
       }
       else {
         return [
-          "Oversized T-shirts",
-          "All T-Shirts",
-          "All Shirts",
-          "Jackets",
-          "Hoodies & Sweatshirts",
-          "Sweaters",
-          "Boyfriend T-shirts"
+          "Oversized t-shirts",
+          "Shits",
+          "Tops",
+          "Jakets",
+          "Dresses",
         ];
       }
     case "BOTTOMWEAR":
       if (section === 'MEN') {
         return [
-          "All Bottoms",
-          "Pants",
-          "Cargos",
+          "Cargo pants",
           "Jeans",
-          "Boxers & Innerwear",
+          "Joggers",
+          "Shorts",
         ];
       }
       else {
         return [
-          "All Cargos",
-          "Joggers",
-          "Pants",
+          "All bottoms",
+          "Cargo & joggers",
           "Jeans",
-          "Shorts",
         ];
       }
     case "SHOES & ACCESSORIES":

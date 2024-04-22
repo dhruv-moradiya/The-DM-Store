@@ -69,6 +69,16 @@ function ProductList() {
     productListData();
   }, []);
 
+  const sortedList = () => {
+    function some(a, b) {
+      return a.date.seconds - b.date.seconds
+    }
+
+    return productList?.sort(some)
+  }
+
+  // console.log("sortedList", sortedList())
+
   return (
     <>
       {showDeletePopUp && (
@@ -87,7 +97,6 @@ function ProductList() {
               message={message}
             />
           ))}
-
         <div className={styles.formBtns}>
           {/* <Filter filterData={filterData} setFilterData={setFilterData} /> */}
           <button onClick={() => setOpenFrom(true)}>
@@ -112,7 +121,7 @@ function ProductList() {
                 <th>Product photo</th>
                 <th>Product name</th>
                 <th>
-                  For Whome <i className="ri-filter-2-fill"></i>
+                  For Whom <i className="ri-filter-2-fill"></i>
                 </th>
                 <th>
                   Category <i className="ri-filter-2-fill"></i>

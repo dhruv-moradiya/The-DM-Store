@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import { getDropDownItems } from "./navHelper";
 import { useClothContext } from "../../context/ClothContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../context/Firebase";
 // || (section === 'KIDS' && item === 'BOY' && item === 'GIRL')
 function Navbar() {
   const [inputExpand, setInputExpand] = useState(false);
-  const { section, setSection, currentUser } = useClothContext();
+  const { section, setSection, currentUser, cartItems } = useClothContext();
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [categoryArray, setCategoryArray] = useState([
     "STREETWEAR EDIT",
@@ -16,7 +16,6 @@ function Navbar() {
     "BOTTOMWEAR",
     "SNEAKERS",
   ]);
-  console.log("sideBarOpen: ", sideBarOpen);
   const navigate = useNavigate();
   useEffect(() => {
     if (section === "MEN") {
@@ -41,8 +40,8 @@ function Navbar() {
   function logOutUser() {
     signOut(auth)
       .then(() => {
-        console.log("Sign-out successful.");
         navigate("/login");
+        console.log("Sign-out successful.");
       })
       .catch((error) => {
         console.log("An error happened.", error);
@@ -70,7 +69,7 @@ function Navbar() {
           );
         })}
       </ul>
-      <NavbarTopForMobile navigate={navigate} setSideBarOpen={setSideBarOpen} />
+      <NavbarTopForMobile navigate={navigate} setSideBarOpen={setSideBarOpen} cartItems={cartItems} />
       <MobileSideBar
         sideBarOpen={sideBarOpen}
         setSideBarOpen={setSideBarOpen}
@@ -130,12 +129,13 @@ function Navbar() {
           >
             <i className="ri-heart-3-line"></i>
           </li>
-          <li
+          <li className={styles.cartBag}
             onClick={function () {
               navigate("/order");
             }}
           >
             <i className="ri-handbag-line"></i>
+            <div className={styles.cartItemNum}>{cartItems?.length}</div>
           </li>
         </ul>
       </div>
@@ -148,7 +148,7 @@ export default Navbar;
 
 // Components for NavBar
 
-function NavbarTopForMobile({ navigate, setSideBarOpen }) {
+function NavbarTopForMobile({ navigate, setSideBarOpen, cartItems }) {
   function iconsRender() {
     return (
       <ul className={styles.navTopMobile}>
@@ -159,12 +159,13 @@ function NavbarTopForMobile({ navigate, setSideBarOpen }) {
         >
           <i className="ri-heart-3-line"></i>
         </li>
-        <li
+        <li className={styles.cartBag}
           onClick={function () {
             navigate("/order");
           }}
         >
           <i className="ri-handbag-line"></i>
+          <div className={styles.cartItemNum}>{cartItems?.length}</div>
         </li>
       </ul>
     );

@@ -1,8 +1,9 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { createContext, useContext } from "react";
 import { auth, db } from "./Firebase";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { initialState, reducer } from "./Reducer";
 
 const clothContext = createContext();
 
@@ -11,6 +12,8 @@ export const ClothContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [allProductData, setAllProductData] = useState(null);
   const [productLikeData, setProductLikeData] = useState(null);
+  const [cartItems, setCartItems] = useState(null)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   function forWhome() {
     switch (section) {
@@ -56,8 +59,39 @@ export const ClothContextProvider = ({ children }) => {
     setProductLikeData(temp);
   }
 
+  async function getCartItems() {
+    console.log("getCartItems")
+    if (!currentUser) return
+
+    const userDocRef = doc(db, "users", currentUser.uid);
+    const subcollectionRef = collection(userDocRef, "cartItems");
+
+    const querySnapshot = await getDocs(subcollectionRef);
+    const temp = [];
+    querySnapshot.forEach((doc) => {
+      temp.push(doc.data());
+    });
+    setCartItems(temp)
+  }
+
+  async function cartStorage(obj, quantity, size) {
+    if (!currentUser?.uid) {
+      return;
+    }
+    const quantityItem = Number(quantity)
+    const userDocRef = doc(db, "users", currentUser.uid);
+    const subcollectionRef = collection(userDocRef, "cartItems");
+
+    const itemRef = await addDoc(subcollectionRef, { ...obj, quantity: quantityItem, size })
+    await setDoc(doc(subcollectionRef, itemRef.id), { orderID: itemRef.id }, { merge: true })
+    getCartItems()
+  }
+
+
+
   useEffect(() => {
     getAllLikedProducts();
+    getCartItems()
   }, [currentUser]);
 
   useEffect(() => {
@@ -69,9 +103,6 @@ export const ClothContextProvider = ({ children }) => {
     });
   }, [auth]);
 
-
-
-  console.log("currentUser: ", currentUser);
   return (
     <clothContext.Provider
       value={{
@@ -82,7 +113,10 @@ export const ClothContextProvider = ({ children }) => {
         currentUser,
         setCurrentUser,
         productLikeData,
-        getAllLikedProducts
+        getAllLikedProducts,
+        cartStorage,
+        getCartItems,
+        cartItems,
       }}
     >
       {children}

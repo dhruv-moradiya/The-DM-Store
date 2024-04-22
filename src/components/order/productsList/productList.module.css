@@ -1,3 +1,13 @@
+.message {
+  width: 100%;
+  height: calc(100vh - 570px);
+  color: #4f5b66;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   flex: 2;
   width: 100%;
@@ -45,8 +55,12 @@
 
 .content > div {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 10px;
+}
+
+.content_1 {
+  justify-content: space-between;
 }
 
 .content_1 h3 {
@@ -56,22 +70,45 @@
 .content_2 {
   font-size: 14px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.content_3 select {
-  padding: 4px 10px;
-  border: 1px solid #dedede;
-  border-radius: 6px;
-}
-
-.content_3 .increment_decrement {
+.content_2 ul {
+  list-style: none;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.content_3 .increment_decrement p {
+.content_2 ul h3 {
+  font-size: 14.5px;
+}
+
+.content_2 ul li {
+  border: 1px solid #dbdbdb;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.content_3 {
+  font-size: 14px;
+  display: flex;
+  gap: 20px;
+}
+
+.content_4 {
+  justify-content: space-between;
+}
+
+.content_4 .increment_decrement {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.content_4 .increment_decrement p {
   width: 26px;
   height: 26px;
   display: flex;
@@ -83,11 +120,11 @@
   cursor: pointer;
 }
 
-.content_3 .increment_decrement p:hover {
+.content_4 .increment_decrement p:hover {
   background-color: #dbdbdb;
 }
 
-.content_3 button {
+.content_4 button {
   padding: 5px 10px;
   border-radius: 5px;
   border: none;
@@ -96,6 +133,6 @@
   cursor: pointer;
 }
 
-.content_3 button:hover {
+.content_4 button:hover {
   background-color: #f94d53;
 }

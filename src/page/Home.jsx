@@ -4,8 +4,6 @@ import CategoryList from '../components/home/category/CategoryList'
 import ProductList from '../components/common/productCard/ProductList'
 import CollectionList from '../components/home/collection/CollectionList'
 import MerchndiseList from '../components/home/merchandise/MerchndiseList'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../context/Firebase'
 import { useClothContext } from '../context/ClothContext'
 
 function Home() {
