@@ -11,11 +11,12 @@ function CategoryProducts() {
   let { category } = useParams();
   const { section } = useClothContext();
   const [productList, setProductList] = useState(null);
+  const [filteredProductList, setFilterdProductList] = useState(null);
   const cetegorySection = category.split("-")[1];
 
   let filterStr = category.split("-");
   const what = filterByWhat(filterStr).type;
-  console.log("SOOO", filterByType(what, Number(filterStr[1]), section).name);
+
   async function sanpShot(q) {
     let productTemp = [];
     const querySnapShot = await getDocs(q);
@@ -50,10 +51,15 @@ function CategoryProducts() {
 
   return (
     <div style={{ padding: "10px 0px", display: "flex", width: "100%" }}>
-      <SideBar />
+      <SideBar
+        category={category}
+        productList={productList}
+        setProductList={setProductList}
+        setFilterdProductList={setFilterdProductList}
+      />
       <ProductCardList
         cetegorySection={cetegorySection}
-        productList={productList}
+        productList={!filteredProductList ? productList : filteredProductList}
       />
     </div>
   );

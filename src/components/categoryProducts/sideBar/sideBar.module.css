@@ -90,3 +90,7 @@
   gap: 10px;
   padding: 6px 0;
 }
+
+.selectedSizeBtn {
+  border: 2px solid teal !important;
+}
