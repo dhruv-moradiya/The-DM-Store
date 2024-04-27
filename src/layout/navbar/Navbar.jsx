@@ -337,8 +337,9 @@ function NavBottomContainer({ categoryArray, getDropDownItems, section }) {
     const categoryId = whichNavigation[section].find(
       (item) => item.name === dropDownItem
     );
-    return categoryId.id || 1;
+    return categoryId?.id || 1;
   }
+  console.log('NavBottomContainer')
 
   return (
     <div className={styles.navBottomContainer}>

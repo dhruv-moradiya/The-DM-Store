@@ -14,7 +14,7 @@ export function getDropDownItems(item, section) {
       else {
         return [
           "Oversized t-shirts",
-          "Shits",
+          "Shirts",
           "Tops",
           "Jakets",
           "Dresses",
@@ -42,6 +42,7 @@ export function getDropDownItems(item, section) {
       return ["Perfumes", "Backpacks", "Socks", "Caps"];
     case "THEMES":
       return ["Batman", "Black Panther", "Naruto", "One Piece", "Rick And Morxy", "Harry Potter"];
+    // return ["Harry Potter"];
     default:
       return [];
   }
