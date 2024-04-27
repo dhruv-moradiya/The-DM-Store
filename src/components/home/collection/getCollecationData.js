@@ -135,6 +135,16 @@ export function fanDomData(section) {
           src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
           name: "Spider Man",
         },
+        {
+          id: 7,
+          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_1.jpg?format=webp&w=480&dpr=1.3",
+          name: "Naruto",
+        },
+        {
+          id: 8,
+          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
+          name: "One Piece",
+        },
       ];
 
     default:

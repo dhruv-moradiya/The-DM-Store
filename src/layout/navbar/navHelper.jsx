@@ -4,7 +4,7 @@ export function getDropDownItems(item, section) {
       if (section === 'MEN') {
         return [
           "Oversized t-shirts",
-          "T-Shirt",
+          "T-shirt",
           "Shirts",
           "Jakets",
           "Hoodies",
@@ -41,7 +41,7 @@ export function getDropDownItems(item, section) {
     case "ACCESSORIES":
       return ["Perfumes", "Backpacks", "Socks", "Caps"];
     case "THEMES":
-      return ["All Superheroes", "All Movies & TV Shows", "All Cartoons", "Patterns", "Funny", "Food"];
+      return ["Batman", "Black Panther", "Naruto", "One Piece", "Rick And Morxy", "Harry Potter"];
     default:
       return [];
   }

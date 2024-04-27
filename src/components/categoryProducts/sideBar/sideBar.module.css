@@ -94,3 +94,15 @@
 .selectedSizeBtn {
   border: 2px solid teal !important;
 }
+
+.removeFilterBtn {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.removeFilterBtn:hover {
+  background-color: #c6c6c6;
+}

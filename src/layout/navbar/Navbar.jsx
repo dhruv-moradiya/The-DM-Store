@@ -2,21 +2,28 @@ import React, { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import { getDropDownItems } from "./navHelper";
 import { useClothContext } from "../../context/ClothContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../../context/Firebase";
+import { app, auth } from "../../context/Firebase";
+import SearchBox from "./searchBox/SearchBox";
+import {
+  categoryArray_female,
+  categoryArray_kids,
+  categoryArray_male,
+} from "../../helpers/helpers";
+import { fanDomData } from "../../components/home/collection/getCollecationData";
+import { merchandiseData } from "../../components/home/merchandise/merchandiseData";
 // || (section === 'KIDS' && item === 'BOY' && item === 'GIRL')
 function Navbar() {
+  const { allProductData } = useClothContext();
+  const [showSearchedItems, setShowSearchedItems] = useState(null);
+  const [searchInputFilde, setSearchInputFilde] = useState("");
   const [inputExpand, setInputExpand] = useState(false);
   const { section, setSection, currentUser, cartItems } = useClothContext();
   const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [categoryArray, setCategoryArray] = useState([
-    "STREETWEAR EDIT",
-    "TOPWEAR",
-    "BOTTOMWEAR",
-    "SNEAKERS",
-  ]);
+  const [categoryArray, setCategoryArray] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (section === "MEN") {
       setCategoryArray(["TOPWEAR", "BOTTOMWEAR", "SNEAKERS", "THEMES"]);
@@ -52,6 +59,37 @@ function Navbar() {
     navigate("/");
   }
 
+  function searchedItemBoxVisible(e) {
+    // setShowSearchedItems(true);
+    setSearchInputFilde(e.target.value);
+  }
+
+  function filterProducts() {
+    if (!allProductData || !searchInputFilde) return null;
+    const temp = [];
+    const searchInputLower = searchInputFilde.toLowerCase();
+
+    for (const item of allProductData) {
+      const itemName = item.name.toLowerCase();
+      const itemCategory = item.category.toLowerCase();
+
+      if (
+        itemName.includes(searchInputLower) ||
+        itemCategory.includes(searchInputLower)
+      ) {
+        if (!temp.find((value) => value.id === item.id)) {
+          temp.push(item);
+        }
+      }
+    }
+    console.log(temp);
+    setShowSearchedItems(temp);
+  }
+
+  useEffect(() => {
+    filterProducts();
+  }, [searchInputFilde]);
+
   if (!currentUser) return <h1>Loading....</h1>;
   return (
     <nav>
@@ -69,7 +107,11 @@ function Navbar() {
           );
         })}
       </ul>
-      <NavbarTopForMobile navigate={navigate} setSideBarOpen={setSideBarOpen} cartItems={cartItems} />
+      <NavbarTopForMobile
+        navigate={navigate}
+        setSideBarOpen={setSideBarOpen}
+        cartItems={cartItems}
+      />
       <MobileSideBar
         sideBarOpen={sideBarOpen}
         setSideBarOpen={setSideBarOpen}
@@ -81,28 +123,11 @@ function Navbar() {
       />
 
       <div className={styles.navBottomContainer}>
-        <ul className={styles.navBottom}>
-          {categoryArray.map((item, index) => {
-            const dropDownItems = getDropDownItems(item, section);
-            return (
-              <li key={index}>
-                <div className={styles.innerCategoryName}>
-                  <p>{item}</p>
-                  {item !== "SNEAKERS" && item !== "BOY" && item !== "GIRL" && (
-                    <i className="ri-arrow-down-s-line"></i>
-                  )}
-                </div>
-                {item !== "SNEAKERS" && (
-                  <ul className={styles.innerCategory}>
-                    {dropDownItems.map((item, index) => {
-                      return <li key={index}>{item}</li>;
-                    })}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <NavBottomContainer
+          categoryArray={categoryArray}
+          getDropDownItems={getDropDownItems}
+          section={section}
+        />
         <ul className={`${styles.icons} ${styles.mobileIcons}`}>
           <li
             className={styles.serchPart}
@@ -113,6 +138,8 @@ function Navbar() {
               type="text"
               placeholder="Search"
               className={inputExpand ? styles.expandInput : ""}
+              value={searchInputFilde}
+              onChange={searchedItemBoxVisible}
             />
             <i className="ri-search-line"></i>
           </li>
@@ -129,7 +156,8 @@ function Navbar() {
           >
             <i className="ri-heart-3-line"></i>
           </li>
-          <li className={styles.cartBag}
+          <li
+            className={styles.cartBag}
             onClick={function () {
               navigate("/order");
             }}
@@ -137,8 +165,12 @@ function Navbar() {
             <i className="ri-handbag-line"></i>
             <div className={styles.cartItemNum}>{cartItems?.length}</div>
           </li>
+          {showSearchedItems && (
+            <SearchBox showSearchedItems={showSearchedItems} />
+          )}
         </ul>
       </div>
+
       <NavBottomContainerMobile section={section} setSection={setSection} />
     </nav>
   );
@@ -159,7 +191,8 @@ function NavbarTopForMobile({ navigate, setSideBarOpen, cartItems }) {
         >
           <i className="ri-heart-3-line"></i>
         </li>
-        <li className={styles.cartBag}
+        <li
+          className={styles.cartBag}
           onClick={function () {
             navigate("/order");
           }}
@@ -234,17 +267,104 @@ function MobileSideBar({
 }
 
 function NavBottomContainerMobile({ section, setSection }) {
-  return <div className={styles.navBottomContainerMobile}>
-    {["MEN", "WOMEN", "KIDS"].map((item, index) => {
-      return (
-        <button
-          key={index}
-          className={section === item ? styles.activeCategotyTab : ""}
-          onClick={() => setSection(item)}
-        >
-          {item}
-        </button>
-      );
-    })}
-  </div>
+  return (
+    <div className={styles.navBottomContainerMobile}>
+      {["MEN", "WOMEN", "KIDS"].map((item, index) => {
+        return (
+          <button
+            key={index}
+            className={section === item ? styles.activeCategotyTab : ""}
+            onClick={() => setSection(item)}
+          >
+            {item}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function NavBottomContainer({ categoryArray, getDropDownItems, section }) {
+
+  function dropDownItemsContainer(item, dropDownItems) {
+
+    //😎😎😎 Some Info 😎😎😎
+    // item is [TOPWEAR, BOTTOMWEAR, etc]
+    // dropDownItems is [T-SHIRTS, SHIRTS, CARGO ...] it is a array
+
+    function getPath(dropItem) {
+      const path =
+        item === "THEMES"
+          ? `${`merchndise-${dropDownItemsNavigation(item, dropItem)}`}`
+          : `${`Category_${section.toLowerCase()}-${dropDownItemsNavigation(item, dropItem)}`}`;
+
+      return path
+    }
+
+    return (
+      <>
+        {item !== "SNEAKERS" && (
+          <ul className={styles.innerCategory}>
+            {dropDownItems.map((dropItem, index) => {
+              return (
+                <Link key={index} to={getPath(dropItem)}>
+                  <li>{dropItem}</li>
+                </Link>
+              );
+            })}
+          </ul>
+        )}
+      </>
+    );
+  }
+
+  function dropDownItemsNavigation(dropDownCategory, dropDownItem) {
+    const categoryArray = {
+      MEN: categoryArray_male,
+      WOMEN: categoryArray_female,
+      KIDS: categoryArray_kids,
+    };
+
+    const dropDownThemeData = {
+      MEN: fanDomData(section),
+      WOMEN: merchandiseData(section),
+      KIDS: merchandiseData(section),
+    };
+
+    const whichNavigation =
+      dropDownCategory === "THEMES" ? dropDownThemeData : categoryArray;
+
+    const categoryId = whichNavigation[section].find(
+      (item) => item.name === dropDownItem
+    );
+    return categoryId.id || 1;
+  }
+
+  return (
+    <div className={styles.navBottomContainer}>
+      <ul className={styles.navBottom}>
+        {categoryArray.map((item, index) => {
+          const dropDownItems = getDropDownItems(item, section);
+          return (
+            <li key={index}>
+              <div className={styles.innerCategoryName}>
+                {item === "SNEAKERS" ? (
+                  <Link to={"Category_men-3"}>
+                    <p>{item}</p>
+                  </Link>
+                ) : (
+                  <p>{item}</p>
+                )}
+
+                {item !== "SNEAKERS" && item !== "BOY" && item !== "GIRL" && (
+                  <i className="ri-arrow-down-s-line"></i>
+                )}
+              </div>
+              {dropDownItemsContainer(item, dropDownItems)}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }

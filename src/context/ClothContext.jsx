@@ -101,7 +101,7 @@ export const ClothContextProvider = ({ children }) => {
       }
       setCurrentUser(user);
     });
-  }, [auth]);
+  }, []);
 
   return (
     <clothContext.Provider

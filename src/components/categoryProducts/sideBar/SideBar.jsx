@@ -76,10 +76,18 @@ function SideBar({ category, productList, setFilterdProductList }) {
     );
   }
 
-  //Start setFilterdProductList ----------------------------------
+  //Start FilterdProductList ----------------------------------
 
   const filterdData = (size = undefined, price = undefined) => {
     console.log("inFun: ", price);
+
+    if (size && price)
+      return productList.filter(
+        (item) =>
+          item.chekedCheckBox.find((value) => value === size) === size &&
+          item.price >= price.min &&
+          item.price <= price.max
+      );
 
     if (size)
       return productList?.filter(
@@ -90,22 +98,18 @@ function SideBar({ category, productList, setFilterdProductList }) {
       return productList?.filter(
         (item) => item.price >= price.min && item.price <= price.max
       );
-
-    if (size && price)
-      return productList.filter(
-        (item) =>
-          item.chekedCheckBox.find((value) => value === size) === size &&
-          item.price >= price.min &&
-          item.price <= price.max
-      );
-
-    return productList;
   };
+
+  function removeFilter() {
+    setFilterdProductList(null)
+    setSelectedPrice(null)
+    setselectedSizeBtn(null)
+  }
 
   console.log("selectedPrice", selectedPrice);
   console.log("selectedSizeBtn", selectedSizeBtn);
 
-  //End setFilterdProductList ------------------------------------
+  //End FilterdProductList ------------------------------------
 
   return (
     <div className={styles.container}>
@@ -131,9 +135,10 @@ function SideBar({ category, productList, setFilterdProductList }) {
           })}
         </div>
       </div> */}
+      <button className={styles.removeFilterBtn} onClick={removeFilter}>Remove Filter</button>
       <div className={styles.filterType}>
         <h3>SIZE</h3>
-        <input type="text" placeholder="Search for Size" />
+        {/* <input type="text" placeholder="Search for Size" /> */}
         {sizeRendering()}
       </div>
       <div className={styles.filterType}>
