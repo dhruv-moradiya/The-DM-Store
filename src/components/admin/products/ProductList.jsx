@@ -15,6 +15,14 @@ import { capitalize, getDate } from "./form/helper";
 import Filter from "./filter/Filter";
 import DeleteProduct from "./deleteProduct/DeleteProduct";
 import UpdateForm from "./updateProductDetails/UpdateForm";
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
 
 function ProductList() {
   const [productList, setProductList] = useState(null);
@@ -27,6 +35,9 @@ function ProductList() {
   const [isLoading, setIsLoding] = useState(false);
   const [showDeletePopUp, setShowDeletePopUp] = useState(false);
   const [idProduct, setIdProduct] = useState(null);
+  const [sorting, setSorting] = useState([]);
+  console.log("sorting", sorting);
+
   function hidePopOver() {
     setIsVisible(false);
     setError("");
@@ -71,13 +82,133 @@ function ProductList() {
 
   const sortedList = () => {
     function some(a, b) {
-      return a.date.seconds - b.date.seconds
+      return a.date.seconds - b.date.seconds;
     }
 
-    return productList?.sort(some)
-  }
+    return productList?.sort(some);
+  };
+  // console.log(productList)
+  const columnHelper = createColumnHelper();
 
-  // console.log("sortedList", sortedList())
+  const columns = [
+    columnHelper.accessor("imageURL1", {
+      header: "Product Image",
+      enableSorting: false,
+      cell: (info) => (
+        <div className={styles.imageTD}>
+          <img src={info.getValue()} alt={info.row.name} />
+        </div>
+      ),
+    }),
+    columnHelper.accessor("name", {
+      header: "Product Name",
+      enableSorting: true,
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("forWhome", {
+      header: "For Whom",
+      enableSorting: false,
+      cell: (info) => <p>{capitalize(info.getValue())}</p>,
+    }),
+    columnHelper.accessor("category", {
+      header: "Category",
+      enableSorting: false,
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("productCollection", {
+      header: "Collection",
+      enableSorting: false,
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("theme", {
+      header: "Theme",
+      enableSorting: false,
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("price", {
+      header: "Price",
+      enableSorting: true,
+      cell: (info) => `₹${info.getValue()}`,
+    }),
+    columnHelper.accessor("discount", {
+      header: "Discount",
+      enableSorting: true,
+      cell: (info) => `${info.getValue()}%`,
+    }),
+    columnHelper.display({
+      id: "icon_update",
+      header: "Update",
+      // enableSorting: false,
+      cell: (info) => (
+        <i
+          className="ri-brush-2-fill"
+          onClick={() => {
+            setOpenUpdateFrom(true);
+            setIdProduct(info.row.original.id);
+            window.scroll(0, 0);
+          }}
+        ></i>
+      ),
+    }),
+    columnHelper.display({
+      id: "icon_delete",
+      header: "Delete",
+      // enableSorting: false,
+      cell: (info) => (
+        <i
+          className="ri-delete-bin-6-fill"
+          onClick={() => showDeletePopUpBox(info.row.original.id)}
+        ></i>
+      ),
+    }),
+    columnHelper.accessor((row) => row.date.seconds, {
+      header: "Product Adding date",
+      enableSorting: true,
+      cell: (info) => {
+        return getDate(info.getValue());
+      },
+    }),
+    // columnHelper.accessor((row) => row.chekedCheckBox, {
+    //   header: "Sizes",
+    //   enableSorting: false,
+    //   cell: (info) => {
+    //     return (
+    //       <div>
+    //         {info.getValue().map((item) => (
+    //           <span
+    //             style={{
+    //               border: "1px solid black",
+    //               margin: "0 3px",
+    //               padding: "2px 3px",
+    //             }}
+    //             key={item}
+    //           >
+    //             {item}
+    //           </span>
+    //         ))}
+    //       </div>
+    //     );
+    //   },
+    // }),
+  ];
+
+  const table = useReactTable({
+    data: productList,
+    columns,
+    state: {
+      sorting,
+    },
+    initialState: {
+      pagination: {
+        pageSize: 8,
+      },
+    },
+    getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
+  console.log("sss", table.getCanPreviousPage());
 
   return (
     <>
@@ -98,7 +229,6 @@ function ProductList() {
             />
           ))}
         <div className={styles.formBtns}>
-          {/* <Filter filterData={filterData} setFilterData={setFilterData} /> */}
           <button onClick={() => setOpenFrom(true)}>
             <span>
               <i className="ri-apps-2-add-line"></i>
@@ -115,101 +245,121 @@ function ProductList() {
             containerHeight="50vh"
           />
         ) : (
-          <table className={styles.tableProductList}>
-            <thead className={styles.productListThead}>
-              <tr>
-                <th>Product photo</th>
-                <th>Product name</th>
-                <th>
-                  For Whom <i className="ri-filter-2-fill"></i>
-                </th>
-                <th>
-                  Category <i className="ri-filter-2-fill"></i>
-                </th>
-                <th>
-                  Collection <i className="ri-filter-2-fill"></i>
-                </th>
-                <th>
-                  Theme <i className="ri-filter-2-fill"></i>
-                </th>
-                {/* <th>Dics</th> */}
-                <th>
-                  Price <i className="ri-filter-2-fill"></i>
-                </th>
-                <th>
-                  Discount <i className="ri-filter-2-fill"></i>
-                </th>
-                <th>Update</th>
-                <th>Delete</th>
-                <th>Product Adding date</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th></th>
-                <th>
-                  <input type="text" />
-                </th>
-                <th>
-                  <input type="text" />
-                </th>
-                <th>
-                  <input type="text" />
-                </th>
-                <th>
-                  <input type="text" />
-                </th>
-                {/* <th>Dics</th> */}
-                <th>
-                  <input type="text" />
-                </th>
-                <th>
-                  <input type="text" />
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody className={styles.productListTbody}>
-              {productList.map((item, index) => {
-                const timestamp = item.date;
-                return (
-                  <tr key={index}>
-                    <td>
-                      <div className={styles.imageTD}>
-                        <img src={item.imageURL1} alt="" />
-                      </div>
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{capitalize(item.forWhome)}</td>
-                    <td>{item.category}</td>
-                    <td>{item.productCollection}</td>
-                    <td>{item.theme}</td>
-                    {/* <td>{item.discription}</td> */}
-                    <td>₹{item.price}</td>
-                    <td>{item.discount}%</td>
-                    <td>
-                      <i
-                        className="ri-brush-2-fill"
-                        onClick={() => {
-                          setOpenUpdateFrom(true);
-                          setIdProduct(item.id);
-                          window.scroll(0, 0);
-                        }}
-                      ></i>
-                    </td>
-                    <td>
-                      <i
-                        className="ri-delete-bin-6-fill"
-                        onClick={() => showDeletePopUpBox(item.id)}
-                      ></i>
-                    </td>
-                    <td>{getDate(timestamp.seconds)}</td>
+          <>
+            <div className={styles.paginationPart}>
+              <div className={styles.itemPerPage}>
+                <p>Total: {productList.length}</p>
+                <p>Items per page</p>
+                <select
+                  className={styles.op}
+                  value={table.getState().pagination.pageSize}
+                  onChange={(e) => table.setPageSize(Number(e.target.value))}
+                >
+                  {[8, 12, 16, 20].map((pageSize) => (
+                    <option key={pageSize} value={pageSize}>
+                      {pageSize}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.pageNavigation}>
+                <button
+                  className={styles.arrowButton}
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <i className="ri-arrow-left-double-line"></i>
+                </button>
+                <button
+                  className={styles.arrowButton}
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <i className="ri-arrow-left-s-line"></i>
+                </button>
+                <input
+                  type="number"
+                  min={1}
+                  max={table.getPageCount()}
+                  value={table.getState().pagination.pageIndex + 1}
+                  onChange={(e) => {
+                    const page = e.target.value
+                      ? Number(e.target.value) - 1
+                      : 0;
+                    table.setPageIndex(page);
+                  }}
+                />
+                <p>Page 1</p>
+                <button
+                  className={styles.arrowButton}
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <i className="ri-arrow-right-s-line"></i>
+                </button>
+                <button
+                  className={styles.arrowButton}
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <i className="ri-arrow-right-double-fill"></i>
+                </button>
+              </div>
+            </div>
+            <table className={styles.tableProductList}>
+              <thead className={styles.productListThead}>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        className={
+                          [
+                            "Product Name",
+                            "Price",
+                            "Discount",
+                            "Product Adding date",
+                          ].includes(header.column.columnDef.header)
+                            ? styles.sortingHeading
+                            : ""
+                        }
+                      >
+                        {header.isPlaceholder ? null : (
+                          <div
+                            onClick={header.column.getToggleSortingHandler()}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {{
+                              asc: <span className="pl-2">⬆️</span>,
+                              desc: <span className="pl-2">⬇️</span>,
+                            }[header.column.getIsSorted()] ?? null}
+                          </div>
+                        )}
+                      </th>
+                    ))}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                ))}
+              </thead>
+              <tbody className={styles.productListTbody}>
+                {table.getRowModel().rows.map((row) => (
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
         {openFrom && (
           <ProductAddForm

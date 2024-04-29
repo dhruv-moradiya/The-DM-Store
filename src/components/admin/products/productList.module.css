@@ -46,7 +46,7 @@
 }
 
 .productListTbody td {
-  text-align: center;
+  text-align: center !important;
   padding: 2px;
 }
 
@@ -87,4 +87,59 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.paginationPart {
+  width: 100%;
+  font-size: 14px;
+  background-color: #eeeeee;
+  padding: 6px 20px;
+  border-radius: 6px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.itemPerPage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemPerPage select {
+  border-radius: 4px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pageNavigation input {
+  width: 46px;
+  padding: 4px 6px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.pageNavigation .arrowButton {
+  color: white;
+  padding: 5px 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff494f;
+  cursor: pointer;
+}
+
+.pageNavigation .arrowButton:hover {
+  background-color: #f91f26;
+}
+
+.sortingHeading {
+  cursor: pointer !important;
 }

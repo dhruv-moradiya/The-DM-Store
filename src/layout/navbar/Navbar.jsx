@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import { getDropDownItems } from "./navHelper";
 import { useClothContext } from "../../context/ClothContext";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { app, auth } from "../../context/Firebase";
+import { auth } from "../../context/Firebase";
 import SearchBox from "./searchBox/SearchBox";
 import {
   categoryArray_female,
@@ -166,7 +166,7 @@ function Navbar() {
             <div className={styles.cartItemNum}>{cartItems?.length}</div>
           </li>
           {showSearchedItems && (
-            <SearchBox showSearchedItems={showSearchedItems} />
+            <SearchBox showSearchedItems={showSearchedItems} setShowSearchedItems={setShowSearchedItems} setSearchInputFilde={setSearchInputFilde} />
           )}
         </ul>
       </div>
@@ -176,7 +176,7 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);
 
 // Components for NavBar
 
