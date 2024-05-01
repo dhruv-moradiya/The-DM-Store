@@ -7,6 +7,15 @@
   gap: 10px;
 }
 
+.listItem2 {
+  display: flex;
+  align-items: center;
+}
+
+.listItem2 .cardContainer {
+  width: 300px;
+}
+
 .cardContainer {
   /* width: 300px; */
   background-color: #fcfcfc;
@@ -95,4 +104,21 @@
 
 .productLike {
   background-color: #ff2e2d !important;
+}
+
+@media screen and (max-width: 640px) {
+  .list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+  }
+
+  .cardContainer {
+    width: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
 }

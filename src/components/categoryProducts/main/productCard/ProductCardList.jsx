@@ -17,7 +17,7 @@ function ProductCardList({ productList }) {
       </div>
     );
   return (
-    <div className={styles.list}>
+    <div className={`${styles.list} ${productList.length <= 2 ? styles.listItem2 : ""}`}>
       {productList.map((item, index) => {
         return (
           <ProductCard

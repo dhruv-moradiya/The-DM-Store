@@ -5,7 +5,7 @@ import { merchandiseData } from "../../home/merchandise/merchandiseData";
 import { fanDomData } from "../../home/collection/getCollecationData";
 import { useNavigate } from "react-router-dom";
 
-function SideBar({ category, productList, setFilterdProductList }) {
+function SideBar({ category, productList, setFilterdProductList, showSideBar, setShowSideBar }) {
   const [selectedSizeBtn, setselectedSizeBtn] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null);
 
@@ -112,29 +112,8 @@ function SideBar({ category, productList, setFilterdProductList }) {
   //End FilterdProductList ------------------------------------
 
   return (
-    <div className={styles.container}>
-      {/* <div className={styles.filterType}>
-        <h3>THEMES</h3>
-        <input type="text" placeholder="Search for Themes" />
-        <div className={styles.themeButtons}>
-          {getThemes().map((item, index) => {
-            return (
-              <div key={index} className={styles.themeButton}>
-                <input
-                  type="radio"
-                  id={item.name}
-                  htmlFor="theme"
-                  name="theme"
-                  onChange={() => themeNavigation(index)}
-                />
-                <label htmlFor="theme" id="theme" name="theme">
-                  {item.name}
-                </label>
-              </div>
-            );
-          })}
-        </div>
-      </div> */}
+    <div className={`${styles.container} ${showSideBar ? styles.containerMobile : ""}`}>
+      <button className={styles.closeBtn} onClick={() => setShowSideBar(false)}>&times;</button>
       <button className={styles.removeFilterBtn} onClick={removeFilter}>Remove Filter</button>
       <div className={styles.filterType}>
         <h3>SIZE</h3>

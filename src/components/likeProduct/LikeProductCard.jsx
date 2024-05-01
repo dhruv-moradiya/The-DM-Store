@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import styles from './likeProductCard.module.css'
 import { useNavigate } from "react-router-dom";
 import { useClothContext } from '../../context/ClothContext';
@@ -19,9 +18,7 @@ function LikeProductCard({ id, image1, image2, name, price, category }) {
 
     await deleteDoc(documentRef);
     getAllLikedProducts()
-    console.log('Delete');
   }
-  useEffect(() => { }, [])
   return (
     <div className={styles.cardCotainer} onClick={redirection}>
       <div className={styles.image}>

@@ -5,6 +5,7 @@
   border-radius: 4px;
   padding: 10px 30px;
   padding-right: 4px;
+  position: relative;
 }
 
 .filterType {
@@ -105,4 +106,37 @@
 
 .removeFilterBtn:hover {
   background-color: #c6c6c6;
+}
+
+.closeBtn {
+  /* width: 20px;
+  height: 20px; */
+  padding: 3px 6px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+
+  position: absolute;
+  top: 4px;
+  right: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    width: 250px;
+    height: 100vh;
+    position: absolute;
+    top: 83px;
+    left: -500px;
+    transition: all 0.28s;
+    z-index: 99;
+    background-color: white;
+  }
+
+  .containerMobile {
+    left: 0;
+  }
 }

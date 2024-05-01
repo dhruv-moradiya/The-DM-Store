@@ -1,11 +1,11 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { createContext, useContext } from "react";
 import { auth, db } from "./Firebase";
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { initialState, reducer } from "./Reducer";
 
-const clothContext = createContext();
+const ClothContext = createContext();
 
 export const ClothContextProvider = ({ children }) => {
   const [section, setSection] = useState("MEN");
@@ -13,7 +13,6 @@ export const ClothContextProvider = ({ children }) => {
   const [allProductData, setAllProductData] = useState(null);
   const [productLikeData, setProductLikeData] = useState(null);
   const [cartItems, setCartItems] = useState(null)
-  const [state, dispatch] = useReducer(reducer, initialState);
 
   function forWhome() {
     switch (section) {
@@ -88,7 +87,6 @@ export const ClothContextProvider = ({ children }) => {
   }
 
 
-
   useEffect(() => {
     getAllLikedProducts();
     getCartItems()
@@ -102,9 +100,9 @@ export const ClothContextProvider = ({ children }) => {
       setCurrentUser(user);
     });
   }, []);
-
+  console.log("currentUser in Contaxt::", currentUser)
   return (
-    <clothContext.Provider
+    <ClothContext.Provider
       value={{
         allProductData,
         productListData,
@@ -120,10 +118,10 @@ export const ClothContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </clothContext.Provider>
+    </ClothContext.Provider>
   );
 };
 
-export const useClothContext = () => {
-  return useContext(clothContext);
+export function useClothContext() {
+  return useContext(ClothContext);
 };

@@ -3,9 +3,11 @@ import styles from "./productDetailPart.module.css";
 import { useClothContext } from "../../../context/ClothContext";
 
 function ProductDetailPart({ data, setIsVisible, setMessage }) {
+  const { productLikeData } = useClothContext();
   const [quantity, setQuantity] = useState("1");
   const { cartStorage, cartItems } = useClothContext();
   const [sizeBtn, setSizeBtn] = useState(0);
+  const isProductInLikeData = productLikeData?.find((item) => item.id === data.id) ? true : false
 
   function handleSizeBtnIndex(index) {
     setSizeBtn(index);
@@ -18,6 +20,8 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
     setMessage("Copy to clipboard");
     navigator.clipboard.writeText(window.location.href);
   };
+
+
   return (
     <div className={styles.container}>
       <h3 className={styles.name}>{data.name}</h3>
@@ -52,11 +56,21 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
         </select>
       </div>
       <div className={styles.btns}>
-        <button onClick={() => !isItemInCart && cartStorage(data, quantity, size)}>
+        <button
+          onClick={() => !isItemInCart && cartStorage(data, quantity, size)}
+        >
           {isItemInCart ? "Already in cart" : "Add to Cart"}
         </button>
         <button>
-          <i className="ri-heart-3-line"></i>Add to wishList
+          {isProductInLikeData ? (
+            <>
+              <i className="ri-heart-3-fill"></i>Allready added
+            </>
+          ) : (
+            <>
+              <i className="ri-heart-3-line"></i>Add to wishList
+            </>
+          )}
         </button>
       </div>
       <div className={styles.sharePart}>

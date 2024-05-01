@@ -15,7 +15,7 @@ function MerchndiseList() {
       {section !== "MEN" ? (
         <>
           <Title title='OFFICIAL MERCHANDISE' />
-          <SlickSlider slidesToShow={5}>
+          <SlickSlider slidesToShow={5} play={false} speed={300} infinite={false}>
             {merchandiseData(section).map((item, index) => {
               return <MerchandiseCard key={index} src={item.src} id={item.id} />;
             })}
@@ -24,7 +24,7 @@ function MerchndiseList() {
       ) : (
         <>
           <Title title="SHOP BY FANDOM" />
-          <SlickSlider slidesToShow={3} speed={300} >
+          <SlickSlider slidesToShow={3} speed={300} play={false} infinite={false}>
             {fanDomData(section).map((item, index) => {
               return <CollectionCard src={item.src} id={item.id} key={index} merchndise />;
             })}

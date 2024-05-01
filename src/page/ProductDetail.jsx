@@ -31,10 +31,11 @@ function ProductDetail() {
     });
     setData(temp);
   }
-  console.log(data);
+
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [productID]);
+
   if (!data)
     return (
       <div style={{ height: "50vh", display: "flex", alignItems: "center" }}>

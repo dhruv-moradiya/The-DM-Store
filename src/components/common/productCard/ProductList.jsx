@@ -9,7 +9,7 @@ function ProductList({ title, allProductData }) {
   return (
     <div className={styles.container}>
       {title && <Title title="TOP SELLING" />}
-      <SlickSlider slidesToShow={4} play={false} speed={300}>
+      <SlickSlider slidesToShow={4} play={false} speed={300} infinite={false}>
         {data?.map((item, index) => {
           return (
             <ProductCard

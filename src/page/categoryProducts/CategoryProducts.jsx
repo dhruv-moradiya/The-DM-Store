@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./categoryProduct.module.css";
 import { useParams } from "react-router-dom";
 import SideBar from "../../components/categoryProducts/sideBar/SideBar";
 import ProductCardList from "../../components/categoryProducts/main/productCard/ProductCardList";
@@ -12,6 +13,7 @@ function CategoryProducts() {
   const { section } = useClothContext();
   const [productList, setProductList] = useState(null);
   const [filteredProductList, setFilterdProductList] = useState(null);
+  const [showSideBar, setShowSideBar] = useState(false);
   const cetegorySection = category.split("-")[1];
 
   let filterStr = category.split("-");
@@ -47,15 +49,20 @@ function CategoryProducts() {
 
   useEffect(() => {
     productsDataGet();
-  }, []);
+  }, [category]);
 
   return (
-    <div style={{ padding: "10px 0px", display: "flex", width: "100%" }}>
+    <div className={styles.container}>
+      <button className={styles.filterBtn} onClick={() => setShowSideBar(true)}>
+        Filter
+      </button>
       <SideBar
         category={category}
         productList={productList}
         setProductList={setProductList}
         setFilterdProductList={setFilterdProductList}
+        showSideBar={showSideBar}
+        setShowSideBar={setShowSideBar}
       />
       <ProductCardList
         cetegorySection={cetegorySection}

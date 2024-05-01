@@ -36,7 +36,7 @@ function Hero() {
   }
   return (
     <>
-      <SlickSlider slidesToShow={1}>
+      <SlickSlider slidesToShow={1} play={true} speed={400} infinite={true}>
         {getImages().map((item, index) => {
           return (
             <div key={index} className={styles.heroImage}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import styles from "./productList.module.css";
 import ProductAddForm from "./form/ProductAddForm";
 import PopUp from "../../common/popUp/PopUp";
@@ -7,12 +7,10 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  orderBy,
 } from "firebase/firestore";
 import { db } from "../../../context/Firebase";
 import Loader from "../../common/loader/Loader";
 import { capitalize, getDate } from "./form/helper";
-import Filter from "./filter/Filter";
 import DeleteProduct from "./deleteProduct/DeleteProduct";
 import UpdateForm from "./updateProductDetails/UpdateForm";
 import {
@@ -22,11 +20,13 @@ import {
   getSortedRowModel,
   useReactTable,
   getPaginationRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
+
+
 
 function ProductList() {
   const [productList, setProductList] = useState(null);
-  const [filterData, setFilterData] = useState(null);
   const [openFrom, setOpenFrom] = useState(false);
   const [openUpdateFrom, setOpenUpdateFrom] = useState(false);
   const [error, setError] = useState("");
@@ -36,7 +36,8 @@ function ProductList() {
   const [showDeletePopUp, setShowDeletePopUp] = useState(false);
   const [idProduct, setIdProduct] = useState(null);
   const [sorting, setSorting] = useState([]);
-  console.log("sorting", sorting);
+  const [columnFilters, setColumnFilters] = useState([])
+
 
   function hidePopOver() {
     setIsVisible(false);
@@ -76,18 +77,30 @@ function ProductList() {
     setProductList(productTemp);
   }
 
+  function filterItem(header) {
+    switch (header) {
+      case 'For Whom':
+        return <div>
+          <select name="" id="">
+            <option value="Male">Male</option>
+            <option value="Women">Women</option>
+            <option value="Kids">Kids</option>
+          </select>
+        </div>
+
+      default:
+        break;
+    }
+  }
+
+  function myCustomFilterFn(row, columnId, filterValue) {
+    return row.getValue(columnId) === filterValue;
+  }
+
   useEffect(() => {
     productListData();
   }, []);
 
-  const sortedList = () => {
-    function some(a, b) {
-      return a.date.seconds - b.date.seconds;
-    }
-
-    return productList?.sort(some);
-  };
-  // console.log(productList)
   const columnHelper = createColumnHelper();
 
   const columns = [
@@ -109,6 +122,7 @@ function ProductList() {
       header: "For Whom",
       enableSorting: false,
       cell: (info) => <p>{capitalize(info.getValue())}</p>,
+      filterFn: 'myCustomFilterFn'
     }),
     columnHelper.accessor("category", {
       header: "Category",
@@ -197,19 +211,25 @@ function ProductList() {
     columns,
     state: {
       sorting,
+      columnFilters,
     },
     initialState: {
       pagination: {
         pageSize: 8,
       },
     },
+    manualFiltering: true,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    // getFilteredRowModel: getFilteredRowModel(),
+    filterFns: {
+      myCustomFilterFn,
+    }
   });
-  console.log("sss", table.getCanPreviousPage());
-
+  console.log("columnFilters", columnFilters)
   return (
     <>
       {showDeletePopUp && (
@@ -229,6 +249,7 @@ function ProductList() {
             />
           ))}
         <div className={styles.formBtns}>
+          {/* <Filter filterData={filterData} setFilterData={setFilterData} /> */}
           <button onClick={() => setOpenFrom(true)}>
             <span>
               <i className="ri-apps-2-add-line"></i>
@@ -329,6 +350,21 @@ function ProductList() {
                           <div
                             onClick={header.column.getToggleSortingHandler()}
                           >
+                            {[
+                              "For Whom",
+                              "Category",
+                              "Collection",
+                              "Theme",
+                              "Price",
+                              "Discount",
+                            ].includes(header.column.columnDef.header) ? (
+                              <>
+                                <button className={styles.filterIcon}><i className='ri-filter-2-line'></i></button>
+                                {/* {filterItem(header.column.columnDef.header)} */}
+                              </>
+                            ) : (
+                              ""
+                            )}
                             {flexRender(
                               header.column.columnDef.header,
                               header.getContext()

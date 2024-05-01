@@ -14,7 +14,7 @@ function CollectionList({ title }) {
   return (
     <div className={styles.container}>
       {title && <Title title="collection" />}
-      <SlickSlider slidesToShow={3} speed={300} >
+      <SlickSlider slidesToShow={3} speed={300} play={false} infinite={false}>
         {collectionData(section).map((item, index) => {
           return <CollectionCard src={item.src} id={item.id} key={index} />;
         })}
