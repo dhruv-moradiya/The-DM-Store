@@ -58,8 +58,6 @@ function ProductCard({
     }
   }
 
-  async function decreaseQuantity() { }
-
   return (
     <div className={styles.containerCard}>
       <div className={styles.imagePart}>

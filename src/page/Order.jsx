@@ -6,7 +6,7 @@ import { useClothContext } from '../context/ClothContext'
 function Order() {
   const { currentUser } = useClothContext()
   return (
-    <div style={{ width: '100%', display: 'flex' }}>
+    <div style={{ width: '100%', display: 'flex', flexWrap: "wrap" }}>
       <ProductList currentUser={currentUser} />
       <CheckOut />
     </div>

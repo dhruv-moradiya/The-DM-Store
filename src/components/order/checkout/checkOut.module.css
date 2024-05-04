@@ -55,3 +55,9 @@
 .container form button:hover {
   background-color: rgb(246, 156, 123);
 }
+
+@media screen and (max-width: 640px) {
+  .container {
+    padding: 12px 24px;
+  }
+}

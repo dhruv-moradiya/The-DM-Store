@@ -136,3 +136,22 @@
 .content_4 button:hover {
   background-color: #f94d53;
 }
+
+@media screen and (max-width: 640px) {
+  .content_1 h3 {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .containerCard {
+    height: auto;
+    width: 300px;
+    flex-direction: column;
+  }
+
+  .content {
+    width: 100%;
+    padding: 4px 20px;
+  }
+}
