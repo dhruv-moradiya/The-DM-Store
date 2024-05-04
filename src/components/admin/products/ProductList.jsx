@@ -1,13 +1,8 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./productList.module.css";
 import ProductAddForm from "./form/ProductAddForm";
 import PopUp from "../../common/popUp/PopUp";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../../context/Firebase";
 import Loader from "../../common/loader/Loader";
 import { capitalize, getDate } from "./form/helper";
@@ -15,17 +10,17 @@ import DeleteProduct from "./deleteProduct/DeleteProduct";
 import UpdateForm from "./updateProductDetails/UpdateForm";
 import {
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
   getPaginationRowModel,
-  getFilteredRowModel,
 } from "@tanstack/react-table";
-
-
+import Pagination from "./tableComponents/padination.jsx/Pagination";
+import Table from "./tableComponents/table/Table";
+import { priceListForFilter } from "./helper/helperFuctions";
 
 function ProductList() {
+  const columnHelper = createColumnHelper();
   const [productList, setProductList] = useState(null);
   const [openFrom, setOpenFrom] = useState(false);
   const [openUpdateFrom, setOpenUpdateFrom] = useState(false);
@@ -36,8 +31,9 @@ function ProductList() {
   const [showDeletePopUp, setShowDeletePopUp] = useState(false);
   const [idProduct, setIdProduct] = useState(null);
   const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([])
+  const [columnFilters, setColumnFilters] = useState([]);
 
+  // Some necessary functions [start]-------------------
 
   function hidePopOver() {
     setIsVisible(false);
@@ -77,21 +73,7 @@ function ProductList() {
     setProductList(productTemp);
   }
 
-  function filterItem(header) {
-    switch (header) {
-      case 'For Whom':
-        return <div>
-          <select name="" id="">
-            <option value="Male">Male</option>
-            <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
-          </select>
-        </div>
-
-      default:
-        break;
-    }
-  }
+  // Some necessary functions [end]-------------------
 
   function myCustomFilterFn(row, columnId, filterValue) {
     return row.getValue(columnId) === filterValue;
@@ -101,7 +83,35 @@ function ProductList() {
     productListData();
   }, []);
 
-  const columnHelper = createColumnHelper();
+  //Product Filtering [Start]--------------------------------
+
+  const filteredProducts = useMemo(() => {
+
+    let temp = productList;
+    columnFilters.forEach((filter) => {
+      if (filter.value !== "all") {
+        if (filter.id === "price") {
+          temp = temp.filter(
+            (product) =>
+              Number(product[filter.id]) >
+              priceListForFilter[filter.value].min &&
+              Number(product[filter.id]) < priceListForFilter[filter.value].max
+          );
+        } else if (filter.id === "discount") {
+          temp = temp.filter(
+            (product) => Number(product[filter.id]) === Number(filter.value)
+          );
+        } else {
+          temp = temp.filter((product) => product[filter.id] === filter.value);
+        }
+      } else {
+        return productList;
+      }
+    });
+    return temp;
+  }, [productList, columnFilters]);
+
+  //Product Filtering [End]--------------------------------
 
   const columns = [
     columnHelper.accessor("imageURL1", {
@@ -122,7 +132,7 @@ function ProductList() {
       header: "For Whom",
       enableSorting: false,
       cell: (info) => <p>{capitalize(info.getValue())}</p>,
-      filterFn: 'myCustomFilterFn'
+      filterFn: "myCustomFilterFn",
     }),
     columnHelper.accessor("category", {
       header: "Category",
@@ -207,7 +217,7 @@ function ProductList() {
   ];
 
   const table = useReactTable({
-    data: productList,
+    data: filteredProducts,
     columns,
     state: {
       sorting,
@@ -224,12 +234,11 @@ function ProductList() {
     onColumnFiltersChange: setColumnFilters,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    // getFilteredRowModel: getFilteredRowModel(),
     filterFns: {
       myCustomFilterFn,
-    }
+    },
   });
-  console.log("columnFilters", columnFilters)
+
   return (
     <>
       {showDeletePopUp && (
@@ -249,7 +258,6 @@ function ProductList() {
             />
           ))}
         <div className={styles.formBtns}>
-          {/* <Filter filterData={filterData} setFilterData={setFilterData} /> */}
           <button onClick={() => setOpenFrom(true)}>
             <span>
               <i className="ri-apps-2-add-line"></i>
@@ -267,134 +275,15 @@ function ProductList() {
           />
         ) : (
           <>
-            <div className={styles.paginationPart}>
-              <div className={styles.itemPerPage}>
-                <p>Total: {productList.length}</p>
-                <p>Items per page</p>
-                <select
-                  className={styles.op}
-                  value={table.getState().pagination.pageSize}
-                  onChange={(e) => table.setPageSize(Number(e.target.value))}
-                >
-                  {[8, 12, 16, 20].map((pageSize) => (
-                    <option key={pageSize} value={pageSize}>
-                      {pageSize}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={styles.pageNavigation}>
-                <button
-                  className={styles.arrowButton}
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <i className="ri-arrow-left-double-line"></i>
-                </button>
-                <button
-                  className={styles.arrowButton}
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <i className="ri-arrow-left-s-line"></i>
-                </button>
-                <input
-                  type="number"
-                  min={1}
-                  max={table.getPageCount()}
-                  value={table.getState().pagination.pageIndex + 1}
-                  onChange={(e) => {
-                    const page = e.target.value
-                      ? Number(e.target.value) - 1
-                      : 0;
-                    table.setPageIndex(page);
-                  }}
-                />
-                <p>Page 1</p>
-                <button
-                  className={styles.arrowButton}
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <i className="ri-arrow-right-s-line"></i>
-                </button>
-                <button
-                  className={styles.arrowButton}
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <i className="ri-arrow-right-double-fill"></i>
-                </button>
-              </div>
+            <Pagination table={table} productList={productList} />
+            <div className={styles.tableOuterContainer}>
+              <Table table={table} sortingHeading={[
+                "Product Name",
+                "Price",
+                "Discount",
+                "Product Adding date",
+              ]} />
             </div>
-            <table className={styles.tableProductList}>
-              <thead className={styles.productListThead}>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className={
-                          [
-                            "Product Name",
-                            "Price",
-                            "Discount",
-                            "Product Adding date",
-                          ].includes(header.column.columnDef.header)
-                            ? styles.sortingHeading
-                            : ""
-                        }
-                      >
-                        {header.isPlaceholder ? null : (
-                          <div
-                            onClick={header.column.getToggleSortingHandler()}
-                          >
-                            {[
-                              "For Whom",
-                              "Category",
-                              "Collection",
-                              "Theme",
-                              "Price",
-                              "Discount",
-                            ].includes(header.column.columnDef.header) ? (
-                              <>
-                                <button className={styles.filterIcon}><i className='ri-filter-2-line'></i></button>
-                                {/* {filterItem(header.column.columnDef.header)} */}
-                              </>
-                            ) : (
-                              ""
-                            )}
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                            {{
-                              asc: <span className="pl-2">⬆️</span>,
-                              desc: <span className="pl-2">⬇️</span>,
-                            }[header.column.getIsSorted()] ?? null}
-                          </div>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody className={styles.productListTbody}>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </>
         )}
         {openFrom && (

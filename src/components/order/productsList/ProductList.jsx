@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./productList.module.css";
 import ProductCard from "./ProductCard";
 import { useClothContext } from "../../../context/ClothContext";
@@ -35,4 +35,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default memo(ProductList);

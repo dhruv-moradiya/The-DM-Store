@@ -19,7 +19,7 @@ function UserList({ data }) {
         </thead>
         <tbody>
           {data.map((item, index) => {
-            if (item.email !== "gojo@gmail.com") {
+            if (item.email !== import.meta.env.VITE_APP_ADMIN_EMAIL_NAME) {
               return (
                 <tr key={index}>
                   <td ><div className={styles.imageTD}><img src={item.photoURL} alt={item.displayName} /></div></td>

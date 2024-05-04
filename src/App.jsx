@@ -29,7 +29,7 @@ function ProtectedRoute({ user, children }) {
 
 function ProtectedRouteAdmin({ children }) {
   const user = JSON.parse(localStorage.getItem('DMStore_User'))
-  if (user.email === 'gojo@gmail.com') {
+  if (user.email === import.meta.env.VITE_APP_ADMIN_EMAIL_NAME) {
     return children
   } else {
     <Navigate to={"/login"} />;

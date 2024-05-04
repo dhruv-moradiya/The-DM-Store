@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./hero.module.css";
 import SlickSlider from "../../common/slider/SlickSlider";
 import { useClothContext } from "../../../context/ClothContext";
@@ -49,4 +49,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default memo(Hero);

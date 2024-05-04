@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import styles from './productPhotos.module.css';
 
 
@@ -13,4 +13,4 @@ function ProductPhotos({ imageURL1, imageURL2 }) {
   )
 }
 
-export default ProductPhotos
+export default memo(ProductPhotos)

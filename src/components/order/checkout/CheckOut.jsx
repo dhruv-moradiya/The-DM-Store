@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./checkOut.module.css";
 import { useClothContext } from "../../../context/ClothContext";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
@@ -179,4 +179,4 @@ function CheckOut() {
   );
 }
 
-export default CheckOut;
+export default memo(CheckOut);

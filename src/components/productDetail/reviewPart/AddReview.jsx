@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./addReview.module.css";
 import {
   Timestamp,
@@ -161,4 +161,4 @@ function AddReview({
   );
 }
 
-export default AddReview;
+export default memo(AddReview);

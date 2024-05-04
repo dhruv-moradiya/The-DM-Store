@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./collection.module.css";
 import Title from "../../common/title/Title";
 import CollectionCard from "./CollectionCard";
@@ -23,4 +23,4 @@ function CollectionList({ title }) {
   );
 }
 
-export default CollectionList;
+export default memo(CollectionList);

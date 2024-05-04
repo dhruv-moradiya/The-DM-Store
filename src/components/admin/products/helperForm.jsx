@@ -1,5 +1,7 @@
 import { categoryArray_female, categoryArray_kids, categoryArray_male, collection_kids, collection_men, collection_women, theme_kids, theme_men, theme_women } from "../../../helpers/helpers";
 
+
+
 export function categoryOptions(whome) {
   switch (whome) {
     case "male":

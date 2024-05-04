@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./productDetailPart.module.css";
 import { useClothContext } from "../../../context/ClothContext";
 
@@ -104,4 +104,4 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
   );
 }
 
-export default ProductDetailPart;
+export default memo(ProductDetailPart);

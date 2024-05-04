@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./likeProductCard.module.css";
 import LikeProductCard from "./LikeProductCard";
 import { useClothContext } from "../../context/ClothContext";
@@ -42,4 +42,4 @@ function LikeProductCardList() {
   );
 }
 
-export default LikeProductCardList;
+export default memo(LikeProductCardList);

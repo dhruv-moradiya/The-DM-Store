@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./category.module.css";
 import Title from "../../common/title/Title";
 import CategoryCard from "./CategoryCard";
@@ -45,4 +45,4 @@ function CategoryList() {
   );
 }
 
-export default CategoryList;
+export default memo(CategoryList);
