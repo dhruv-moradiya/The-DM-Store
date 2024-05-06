@@ -13,7 +13,7 @@ import {
 function CategoryList() {
   const { section } = useClothContext();
 
-  function categoryName2() {
+  function categoryName() {
     switch (section) {
       case "MEN":
         return categoryArray_male;
@@ -26,7 +26,6 @@ function CategoryList() {
         return []
     }
   }
-  console.log(categoryName2()[3].id)
   return (
     <div className="container">
       <Title title="category" />
@@ -36,7 +35,7 @@ function CategoryList() {
             <CategoryCard
               key={index}
               src={item}
-              categoryID={categoryName2()[index].id}
+              categoryID={categoryName()[index].id}
             />
           );
         })}

@@ -11,7 +11,6 @@ function SlickSlider({
   speed = 300,
   infinite = false,
 }) {
-
   function getResponsiveProps() {
     if (slidesToShow === 3) {
       return [
@@ -21,8 +20,8 @@ function SlickSlider({
             slidesToShow: 3,
             slidesToScroll: 3,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
         {
           breakpoint: 1250,
@@ -30,8 +29,8 @@ function SlickSlider({
             slidesToShow: 2,
             slidesToScroll: 2,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
         {
           breakpoint: 1000,
@@ -39,10 +38,10 @@ function SlickSlider({
             slidesToShow: 1,
             slidesToScroll: 1,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
-      ]
+      ];
     } else if (slidesToShow === 4) {
       return [
         {
@@ -51,8 +50,8 @@ function SlickSlider({
             slidesToShow: 4,
             slidesToScroll: 4,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
         {
           breakpoint: 1250,
@@ -60,8 +59,8 @@ function SlickSlider({
             slidesToShow: 3,
             slidesToScroll: 3,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
         {
           breakpoint: 1000,
@@ -69,8 +68,8 @@ function SlickSlider({
             slidesToShow: 2,
             slidesToScroll: 2,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
         {
           breakpoint: 640,
@@ -78,13 +77,129 @@ function SlickSlider({
             slidesToShow: 1,
             slidesToScroll: 1,
             infinite: false,
-            dots: false
-          }
+            dots: false,
+          },
         },
-      ]
+      ];
+    } else if (slidesToShow === 5) {
+      return [
+        {
+          breakpoint: 1440,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            infinite: false,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 1250,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: false,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 1000,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: false,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 740,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: false,
+            dots: false,
+          },
+        },
+        {
+          breakpoint: 540,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: false,
+            dots: false,
+          },
+        },
+      ];
     }
   }
 
+  function trySome() {
+    console.log("slidesToShow in trySome:", slidesToShow); // Confirm the value of slidesToShow
+    switch (slidesToShow) {
+      case 5:
+        return [
+          {
+            breakpoint: 1440,
+            settings: { slidesToShow: 5, slidesToScroll: 5, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1250,
+            settings: { slidesToShow: 4, slidesToScroll: 4, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1000,
+            settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 740,
+            settings: { slidesToShow: 2, slidesToScroll: 2, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 540,
+            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false, dots: false },
+          },
+        ];
+      case 4:
+        return [
+          {
+            breakpoint: 1440,
+            settings: { slidesToShow: 4, slidesToScroll: 4, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1250,
+            settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1000,
+            settings: { slidesToShow: 2, slidesToScroll: 2, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 640,
+            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false, dots: false },
+          },
+        ];
+      case 3:
+        return [
+          {
+            breakpoint: 1440,
+            settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1250,
+            settings: { slidesToShow: 2, slidesToScroll: 2, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1000,
+            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false, dots: false },
+          },
+        ];
+      default:
+        return [];
+    }
+  }
+
+  const responsive = trySome();
+
+  console.log("slidesToShow", slidesToShow, trySome())
   const settings = {
     dots: false,
     infinite: infinite,
@@ -96,7 +211,7 @@ function SlickSlider({
     cssEase: "linear",
     prevArrow: <PrevButton />,
     nextArrow: <NextButton />,
-    responsive: getResponsiveProps(),
+    responsive: responsive,
   };
   return (
     <Slider {...settings} style={{ width: "100%" }}>

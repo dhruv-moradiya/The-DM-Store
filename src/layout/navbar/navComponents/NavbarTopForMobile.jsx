@@ -20,6 +20,9 @@ function NavbarTopForMobile({ navigate, setSideBarOpen, cartItems }) {
           <i className="ri-handbag-line"></i>
           <div className={styles.cartItemNum}>{cartItems?.length}</div>
         </li>
+        <li onClick={function () {
+          navigate("/myorder");
+        }}><i className="ri-red-packet-fill"></i></li>
       </ul>
     );
   }

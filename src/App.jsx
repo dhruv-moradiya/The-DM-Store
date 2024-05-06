@@ -14,6 +14,7 @@ import { useClothContext } from './context/ClothContext'
 import ProductDetail from './page/ProductDetail'
 import LikedProducts from './page/LikedProducts'
 import Order from './page/Order'
+import MyOrder from './page/MyOrder'
 
 function ProtectedRoute({ user, children }) {
   const navigate = useNavigate()
@@ -49,6 +50,7 @@ function App() {
             <Route path='/:category/:productID' element={<ProductDetail />} />
             <Route path='/likedProducts' element={<LikedProducts />} />
             <Route path='/order' element={<Order />} />
+            <Route path='/myorder' element={<MyOrder />} />
             <Route path='/admin' element={<AdminLayout />}>
               <Route index element={<Admin />} />
               <Route path='/admin/users' element={<Users />} />

@@ -138,7 +138,6 @@ function ProductAddForm({
   }
 
   async function handleSubmit(e) {
-    console.log("event: ", e);
     e.preventDefault();
     let productobj = {
       name,
@@ -158,7 +157,6 @@ function ProductAddForm({
       setIsLoding(true);
       const newDocRef = await addDoc(collection(db, "products"), productobj);
       await setDoc(newDocRef, { id: newDocRef.id }, { merge: true });
-      console.log("Document added with ID:", newDocRef.id);
       setMessage("Product added successfully");
       productListData();
       setIsVisible(true);

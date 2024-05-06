@@ -55,7 +55,6 @@ function SignUp() {
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then(
               async (downloadURL) => {
-                console.log("downloadURL", downloadURL);
 
                 await updateProfile(user, {
                   displayName,

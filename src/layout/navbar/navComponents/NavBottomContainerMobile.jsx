@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from '../navbar.module.css'
 
 function NavBottomContainerMobile({ section, setSection }) {
@@ -18,4 +19,4 @@ function NavBottomContainerMobile({ section, setSection }) {
   );
 }
 
-export default NavBottomContainerMobile
+export default memo(NavBottomContainerMobile)

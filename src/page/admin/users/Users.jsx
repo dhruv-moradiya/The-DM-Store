@@ -14,7 +14,6 @@ function Users() {
         temp.push(doc.data())
       })
       setUserData(temp)
-      console.log("temp", temp)
     } catch (error) {
       console.log(error)
     }

@@ -5,7 +5,8 @@ import ProductCard from "./ProductCard";
 import SlickSlider from "../slider/SlickSlider";
 
 function ProductList({ title, allProductData }) {
-  const data = allProductData?.slice(0, 8)
+  if (!allProductData) return null;
+  const data = allProductData.slice(0, 8)
   return (
     <div className={styles.container}>
       {title && <Title title="TOP SELLING" />}

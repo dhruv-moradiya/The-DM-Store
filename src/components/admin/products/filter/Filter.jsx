@@ -114,9 +114,7 @@ function Filter({ filterData, setFilterData }) {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         FilData.push(doc.data());
-        console.log("new", doc.data());
       });
-      console.log("FilData: ", FilData);
       setFilterData(FilData)
     }
     try {

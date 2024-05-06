@@ -78,10 +78,6 @@
 .price {
   list-style: none;
   width: 100%;
-  /* width: 100%;
-  display: flex;
-  justify-content: start;
-  flex-direction: column; */
 }
 
 .price li {
@@ -122,6 +118,7 @@
   position: absolute;
   top: 4px;
   right: 10px;
+  display: none;
 }
 
 @media screen and (max-width: 640px) {
@@ -138,5 +135,9 @@
 
   .containerMobile {
     left: 0;
+  }
+
+  .closeBtn {
+    display: block;
   }
 }

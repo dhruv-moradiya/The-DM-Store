@@ -28,7 +28,6 @@ export function filterByWhat(filterStr) {
 }
 
 export function filterByType(filterByWhatType, value, gender) {
-  console.log("value", value)
   if (filterByWhatType === "productCollection") {
     return collectionData(gender).find((item) => item.id === value);
   } else if (filterByWhatType === "theme") {

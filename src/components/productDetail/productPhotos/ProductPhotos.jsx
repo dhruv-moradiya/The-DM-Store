@@ -3,7 +3,6 @@ import styles from './productPhotos.module.css';
 
 
 function ProductPhotos({ imageURL1, imageURL2 }) {
-  console.log(imageURL1)
 
   return (
     <div className={styles.container}>

@@ -1,16 +1,21 @@
-import React from 'react'
-import ProductList from '../components/order/productsList/ProductList'
-import CheckOut from '../components/order/checkout/CheckOut'
-import { useClothContext } from '../context/ClothContext'
+import React, { useEffect, useState } from "react";
+import ProductList from "../components/order/productsList/ProductList";
+import CheckOut from "../components/order/checkout/CheckOut";
+import { useClothContext } from "../context/ClothContext";
 
 function Order() {
-  const { currentUser } = useClothContext()
+  const { currentUser, cartItems } = useClothContext();
+
   return (
-    <div style={{ width: '100%', display: 'flex', flexWrap: "wrap" }}>
-      <ProductList currentUser={currentUser} />
+    <div style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
+      <ProductList
+        currentUser={currentUser}
+        cartItems={cartItems}
+      />
+
       <CheckOut />
     </div>
-  )
+  );
 }
 
-export default Order  
+export default Order;

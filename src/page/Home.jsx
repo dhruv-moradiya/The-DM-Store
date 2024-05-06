@@ -12,6 +12,9 @@ function Home() {
   useEffect(() => {
     productListData();
   }, [section]);
+
+  if (!allProductData) return null;
+
   return (
     <div style={{ maxWidth: "100vw", overflow: "hidden" }}>
       <Hero />

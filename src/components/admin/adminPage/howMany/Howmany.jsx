@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from './howMany.module.css'
 
-function Howmany() {
+function Howmany({ orderData }) {
+
+  // const sale = orderData?.reduce((a, b) => a + Number(b.total), 0)
   return (
     <div className={styles.container}>
       <h2><i className="ri-hand"></i>Hello Admin</h2>
@@ -9,7 +11,7 @@ function Howmany() {
         <div className={styles.box}>
           <i className="ri-price-tag-3-fill"></i>
           <h4>Sale</h4>
-          <p>₹10,00,000</p>
+          <p>₹1</p>
         </div>
         <div className={styles.box}>
           <i className="ri-price-tag-2-fill"></i>

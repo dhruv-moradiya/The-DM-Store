@@ -16,7 +16,7 @@ function Navbar() {
   const [showSearchedItems, setShowSearchedItems] = useState(null);
   const [searchInputFilde, setSearchInputFilde] = useState("");
   const [inputExpand, setInputExpand] = useState(false);
-  const { section, setSection, currentUser, cartItems } = useClothContext();
+  const { section, setSection, currentUser, setCurrentUser, cartItems } = useClothContext();
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [categoryArray, setCategoryArray] = useState([]);
   const navigate = useNavigate();
@@ -44,8 +44,8 @@ function Navbar() {
   function logOutUser() {
     signOut(auth)
       .then(() => {
+        setCurrentUser(null)
         navigate("/login");
-        console.log("Sign-out successful.");
       })
       .catch((error) => {
         console.log("An error happened.", error);
@@ -57,7 +57,6 @@ function Navbar() {
   }
 
   function searchedItemBoxVisible(e) {
-    // setShowSearchedItems(true);
     setSearchInputFilde(e.target.value);
   }
 
@@ -79,7 +78,6 @@ function Navbar() {
         }
       }
     }
-    console.log(temp);
     setShowSearchedItems(temp);
   }
 
@@ -143,9 +141,6 @@ function Navbar() {
           <li className={styles.userPhoto} onClick={handleClick}>
             <img src={currentUser.photoURL} alt="User" />
           </li>
-          <li className={styles.logOutBtn}>
-            <button onClick={logOutUser}>LogOut</button>
-          </li>
           <li
             onClick={function () {
               navigate("/likedProducts");
@@ -162,8 +157,22 @@ function Navbar() {
             <i className="ri-handbag-line"></i>
             <div className={styles.cartItemNum}>{cartItems?.length}</div>
           </li>
+          <li
+            onClick={function () {
+              navigate("/myorder");
+            }}
+          >
+            <i className="ri-red-packet-fill"></i>
+          </li>
+          <li className={styles.logOutBtn}>
+            <button onClick={logOutUser}>LogOut</button>
+          </li>
           {showSearchedItems && (
-            <SearchBox showSearchedItems={showSearchedItems} setShowSearchedItems={setShowSearchedItems} setSearchInputFilde={setSearchInputFilde} />
+            <SearchBox
+              showSearchedItems={showSearchedItems}
+              setShowSearchedItems={setShowSearchedItems}
+              setSearchInputFilde={setSearchInputFilde}
+            />
           )}
         </ul>
       </div>
@@ -174,4 +183,3 @@ function Navbar() {
 }
 
 export default memo(Navbar);
-

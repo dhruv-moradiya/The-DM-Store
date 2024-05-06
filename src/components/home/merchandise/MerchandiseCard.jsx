@@ -5,7 +5,6 @@ function MerchandiseCard({ src, id }) {
   const navigate = useNavigate();
   function navigation() {
     navigate(`/merchndise-${id}`)
-    console.log("first")
   }
   return (
     <div className={styles.containerCard} onClick={navigation}>

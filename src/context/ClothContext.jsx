@@ -1,9 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
 import { auth, db } from "./Firebase";
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-import { initialState, reducer } from "./Reducer";
 
 const ClothContext = createContext();
 
@@ -22,7 +21,7 @@ export const ClothContextProvider = ({ children }) => {
         return "women";
       case "KIDS":
         return "kids";
-      default:
+      default: ""
         break;
     }
   }
@@ -59,7 +58,6 @@ export const ClothContextProvider = ({ children }) => {
   }
 
   async function getCartItems() {
-    console.log("getCartItems")
     if (!currentUser) return
 
     const userDocRef = doc(db, "users", currentUser.uid);
@@ -100,7 +98,6 @@ export const ClothContextProvider = ({ children }) => {
       setCurrentUser(user);
     });
   }, []);
-  console.log("currentUser in Contaxt::", currentUser)
   return (
     <ClothContext.Provider
       value={{

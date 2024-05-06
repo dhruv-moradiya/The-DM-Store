@@ -1,12 +1,15 @@
 import React, { memo, useState } from "react";
 import styles from "./productDetailPart.module.css";
 import { useClothContext } from "../../../context/ClothContext";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../../../context/Firebase";
 
 function ProductDetailPart({ data, setIsVisible, setMessage }) {
-  const { productLikeData } = useClothContext();
+  const { productLikeData, getAllLikedProducts, currentUser } = useClothContext();
   const [quantity, setQuantity] = useState("1");
   const { cartStorage, cartItems } = useClothContext();
   const [sizeBtn, setSizeBtn] = useState(0);
+  const [productLike, setProductLike] = useState(null)
   const isProductInLikeData = productLikeData?.find((item) => item.id === data.id) ? true : false
 
   function handleSizeBtnIndex(index) {
@@ -20,6 +23,31 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
     setMessage("Copy to clipboard");
     navigator.clipboard.writeText(window.location.href);
   };
+
+  async function handleProductLike(e) {
+    e.stopPropagation();
+
+    const likedProductObj = {
+      id: data.id,
+      imageURL1: data.imageURL1,
+      imageURL2: data.imageURL2,
+      name: data.name,
+      category: data.category,
+      price: data.price,
+    };
+
+    try {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const subcollectionRef = collection(userDocRef, "likedProducts");
+      const documentRef = doc(subcollectionRef, data.id);
+
+      await setDoc(documentRef, likedProductObj);
+      setProductLike(true);
+      getAllLikedProducts()
+    } catch (error) {
+      console.log("ERROR:", error);
+    }
+  }
 
 
   return (
@@ -61,8 +89,8 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
         >
           {isItemInCart ? "Already in cart" : "Add to Cart"}
         </button>
-        <button>
-          {isProductInLikeData ? (
+        <button onClick={!isProductInLikeData ? handleProductLike : undefined}>
+          {isProductInLikeData || productLike ? (
             <>
               <i className="ri-heart-3-fill"></i>Allready added
             </>

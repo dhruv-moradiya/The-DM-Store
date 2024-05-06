@@ -50,7 +50,6 @@ function ProductCard({
       await setDoc(documentRef, likedProductObj);
       setProductLike(true);
       getAllLikedProducts()
-      console.log("Product Like.");
     } catch (error) {
       console.log("ERROR:", error);
     }
@@ -67,7 +66,6 @@ function ProductCard({
       await deleteDoc(documentRef);
       setProductLike(false);
       getAllLikedProducts()
-      console.log("Product Dislike.");
     } catch (error) {
       console.log("ERROR:", error);
     }

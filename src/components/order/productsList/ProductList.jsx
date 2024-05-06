@@ -3,8 +3,7 @@ import styles from "./productList.module.css";
 import ProductCard from "./ProductCard";
 import { useClothContext } from "../../../context/ClothContext";
 
-function ProductList() {
-  const { currentUser, cartItems } = useClothContext();
+function ProductList({ cartItems, currentUser }) {
 
   if (!cartItems) return;
   if (cartItems.length === 0)

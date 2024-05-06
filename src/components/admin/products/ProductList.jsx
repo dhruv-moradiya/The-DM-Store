@@ -192,28 +192,6 @@ function ProductList() {
         return getDate(info.getValue());
       },
     }),
-    // columnHelper.accessor((row) => row.chekedCheckBox, {
-    //   header: "Sizes",
-    //   enableSorting: false,
-    //   cell: (info) => {
-    //     return (
-    //       <div>
-    //         {info.getValue().map((item) => (
-    //           <span
-    //             style={{
-    //               border: "1px solid black",
-    //               margin: "0 3px",
-    //               padding: "2px 3px",
-    //             }}
-    //             key={item}
-    //           >
-    //             {item}
-    //           </span>
-    //         ))}
-    //       </div>
-    //     );
-    //   },
-    // }),
   ];
 
   const table = useReactTable({

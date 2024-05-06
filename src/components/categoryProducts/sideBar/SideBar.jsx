@@ -23,23 +23,6 @@ function SideBar({ category, productList, setFilterdProductList, showSideBar, se
     { min: 2500, max: 5000 },
   ];
 
-  function themeNavigation(index) {
-    console.log("first");
-    navigate(`/merchndise-${index + 1}`);
-  }
-
-  function getThemes() {
-    switch (section) {
-      case "MEN":
-        return fanDomData(section);
-      case "WOMEN":
-      case "KIDS":
-        return merchandiseData(section);
-      default:
-        break;
-    }
-  }
-
   function sizeRendering(onlySizeList) {
     const getSizeList = () => {
       if (section === "KIDS") {
@@ -79,10 +62,9 @@ function SideBar({ category, productList, setFilterdProductList, showSideBar, se
   //Start FilterdProductList ----------------------------------
 
   const filterdData = (size = undefined, price = undefined) => {
-    console.log("inFun: ", price);
 
     if (size && price)
-      return productList.filter(
+      return productList?.filter(
         (item) =>
           item.chekedCheckBox.find((value) => value === size) === size &&
           item.price >= price.min &&
@@ -106,8 +88,6 @@ function SideBar({ category, productList, setFilterdProductList, showSideBar, se
     setselectedSizeBtn(null)
   }
 
-  console.log("selectedPrice", selectedPrice);
-  console.log("selectedSizeBtn", selectedSizeBtn);
 
   //End FilterdProductList ------------------------------------
 
@@ -117,7 +97,6 @@ function SideBar({ category, productList, setFilterdProductList, showSideBar, se
       <button className={styles.removeFilterBtn} onClick={removeFilter}>Remove Filter</button>
       <div className={styles.filterType}>
         <h3>SIZE</h3>
-        {/* <input type="text" placeholder="Search for Size" /> */}
         {sizeRendering()}
       </div>
       <div className={styles.filterType}>

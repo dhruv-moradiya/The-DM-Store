@@ -101,53 +101,53 @@ export function collectionData(section) {
 }
 
 export function fanDomData(section) {
-  switch (section) {
-    case "MEN":
-      return [
-        {
-          id: 1,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Batman_1_tCvY6as.jpg?format=webp&w=480&dpr=1.3",
-          name: "Batman",
-        },
-        {
-          id: 2,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/bl_panther.jpg?format=webp&w=480&dpr=1.3",
-          name: "Black Panther",
-        },
+  // switch (section) {
+  //   case "MEN":
+  return [
+    {
+      id: 1,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/Batman_1_tCvY6as.jpg?format=webp&w=480&dpr=1.3",
+      name: "Batman",
+    },
+    {
+      id: 2,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/bl_panther.jpg?format=webp&w=480&dpr=1.3",
+      name: "Black Panther",
+    },
 
-        {
-          id: 3,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick.jpg?format=webp&w=480&dpr=1.3",
-          name: "Rick And Morxy",
-        },
-        {
-          id: 4,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/harry-potter_pxj0PYw.jpg?format=webp&w=480&dpr=1.3",
-          name: "Harry Potter",
-        },
-        {
-          id: 5,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_1.jpg?format=webp&w=480&dpr=1.3",
-          name: "Peanuts",
-        },
-        {
-          id: 6,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
-          name: "Spider Man",
-        },
-        {
-          id: 7,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_1.jpg?format=webp&w=480&dpr=1.3",
-          name: "Naruto",
-        },
-        {
-          id: 8,
-          src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
-          name: "One Piece",
-        },
-      ];
+    {
+      id: 3,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick.jpg?format=webp&w=480&dpr=1.3",
+      name: "Rick And Morxy",
+    },
+    {
+      id: 4,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/harry-potter_pxj0PYw.jpg?format=webp&w=480&dpr=1.3",
+      name: "Harry Potter",
+    },
+    {
+      id: 5,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_1.jpg?format=webp&w=480&dpr=1.3",
+      name: "Peanuts",
+    },
+    {
+      id: 6,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
+      name: "Spider Man",
+    },
+    {
+      id: 7,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_1.jpg?format=webp&w=480&dpr=1.3",
+      name: "Naruto",
+    },
+    {
+      id: 8,
+      src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
+      name: "One Piece",
+    },
+  ];
 
-    default:
-      break;
-  }
+  //   default:
+  //     break;
+  // }
 }

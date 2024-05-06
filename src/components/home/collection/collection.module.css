@@ -11,7 +11,7 @@
 
 .cardContainer img {
   width: 100%;
-  overflow: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
