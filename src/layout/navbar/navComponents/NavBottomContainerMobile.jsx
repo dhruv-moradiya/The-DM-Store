@@ -1,7 +1,15 @@
 import { memo } from 'react';
 import styles from '../navbar.module.css'
+import { useNavigate } from 'react-router-dom';
 
 function NavBottomContainerMobile({ section, setSection }) {
+
+  const navigate = useNavigate()
+
+  function handleClick(item) {
+    setSection(item)
+    navigate('/')
+  }
   return (
     <div className={styles.navBottomContainerMobile}>
       {["MEN", "WOMEN", "KIDS"].map((item, index) => {
@@ -9,7 +17,7 @@ function NavBottomContainerMobile({ section, setSection }) {
           <button
             key={index}
             className={section === item ? styles.activeCategotyTab : ""}
-            onClick={() => setSection(item)}
+            onClick={() => handleClick(item)}
           >
             {item}
           </button>

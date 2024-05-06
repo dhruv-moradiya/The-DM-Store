@@ -1,29 +1,32 @@
 .container {
   width: 90%;
   margin: auto;
-}
-
-.container h3 i {
-  margin-right: 10px;
+  overflow-x: auto;
 }
 
 .table {
-  width: 100% !important;
+  width: 100%;
   border-collapse: collapse;
-  margin: 20px;
-  /* border: 1px solid black; */
+  margin: 20px 0;
 }
 
-.table th {
-  padding-bottom: 10px;
-}
-
-.table thead th {
-  font-weight: 600;
-  font-size: 15px;
+.table th,
+.table td {
+  padding: 10px;
   text-align: left;
 }
 
-.table td {
-  padding: 10px 0;
+@media screen and (max-width: 768px) {
+  .table {
+    width: 100%;
+  }
+
+  .table th {
+    width: 150px;
+    font-size: 14px;
+  }
+
+  .table td {
+    padding: 5px;
+  }
 }

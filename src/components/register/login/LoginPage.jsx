@@ -33,6 +33,7 @@ function LoginPage() {
 
     if (password !== passwordConfirm) {
       setError("Password and confirmation password do not match");
+      setIsVisible(true)
     } else {
       setError("");
       try {

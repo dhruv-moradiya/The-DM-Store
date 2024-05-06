@@ -87,3 +87,20 @@
 .signBtn:hover {
   background-color: #cfcfcf;
 }
+
+@media screen and (max-width: 640px) {
+  .innerContainer {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+  .innerContainer input,
+  .innerContainer select {
+    width: 250px;
+  }
+
+  .innerContainer .photo {
+    display: block;
+  }
+}

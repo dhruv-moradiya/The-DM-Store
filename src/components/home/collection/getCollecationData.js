@@ -100,9 +100,7 @@ export function collectionData(section) {
   }
 }
 
-export function fanDomData(section) {
-  // switch (section) {
-  //   case "MEN":
+export function fanDomData() {
   return [
     {
       id: 1,
@@ -145,9 +143,5 @@ export function fanDomData(section) {
       src: "https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/product-images/rick_copy.jpg?format=webp&w=480&dpr=1.3",
       name: "One Piece",
     },
-  ];
-
-  //   default:
-  //     break;
-  // }
+  ]
 }

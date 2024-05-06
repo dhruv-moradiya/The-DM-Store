@@ -28,6 +28,11 @@ hr {
   font-size: 18px;
 }
 
+.discount {
+  font-size: 15px;
+  color: #ec3d25;
+}
+
 .checkBoxes {
   list-style: none;
   display: flex;
@@ -126,27 +131,6 @@ hr {
 .sharePart ul li:hover {
   border: 3px solid #ec3d25;
   color: #ec3d25;
-}
-
-.pincode {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pincode input {
-  padding: 5px 10px;
-  border: 1px solid #c6c6c6;
-  border-radius: 4px;
-}
-
-.pincode button {
-  padding: 5px 10px;
-  border: 1px solid #c6c6c6;
-  background-color: white;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .description h3 {

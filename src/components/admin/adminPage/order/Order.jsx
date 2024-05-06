@@ -62,45 +62,6 @@ function Order({ orderData }) {
         <i className="ri-price-tag-2-fill" />
         Order
       </h3>
-      {/* <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>User name</th>
-            <th>Phone no</th>
-            <th>Email</th>
-            <th>Number of Items</th>
-            <th>Total</th>
-            <th>Discount</th>
-            <th>Tax Ammount</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Wea_02sTw800</td>
-            <td>Dhruv</td>
-            <td>+91 99002 25648</td>
-            <td>dhruv@gmail.com</td>
-            <td>10</td>
-            <td>₹300</td>
-            <td>10%</td>
-            <td>₹3900.98</td>
-            <td>October 25, 2021</td>
-          </tr>
-          <tr>
-            <td>Wea_02sTw800</td>
-            <td>Dhruv</td>
-            <td>+91 99002 25648</td>
-            <td>dhruv@gmail.com</td>
-            <td>10</td>
-            <td>₹300</td>
-            <td>10%</td>
-            <td>₹3900.98</td>
-            <td>October 25, 2021</td>
-          </tr>
-        </tbody>
-      </table> */}
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

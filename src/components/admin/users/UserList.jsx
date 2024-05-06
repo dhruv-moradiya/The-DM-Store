@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './userList.module.css'
+import React from "react";
+import styles from "./userList.module.css";
 
 function UserList({ data }) {
   return (
@@ -22,21 +22,37 @@ function UserList({ data }) {
             if (item.email !== import.meta.env.VITE_APP_ADMIN_EMAIL_NAME) {
               return (
                 <tr key={index}>
-                  <td ><div className={styles.imageTD}><img src={item.photoURL} alt={item.displayName} /></div></td>
-                  <td>{item.displayName}</td>
-                  <td>{item.gender}</td>
-                  <td>{item.age}</td>
-                  <td>+91 {item.phoneNo}</td>
-                  <td>{item.email}</td>
-                  <td>October 25, 2021</td>
+                  <td>
+                    <div className={styles.imageTD}>
+                      <img src={item.photoURL} alt={item.displayName} />
+                    </div>
+                  </td>
+                  <td>
+                    <p>{item.displayName}</p>
+                  </td>
+                  <td>
+                    <p>{item.gender}</p>
+                  </td>
+                  <td>
+                    <p>{item.age}</p>
+                  </td>
+                  <td>
+                    <p>+91 {item.phoneNo}</p>
+                  </td>
+                  <td>
+                    <p>{item.email}</p>
+                  </td>
+                  <td>
+                    <p>October 25, 2021</p>
+                  </td>
                 </tr>
-              )
+              );
             }
           })}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default UserList
+export default UserList;

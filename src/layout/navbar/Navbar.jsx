@@ -36,8 +36,6 @@ function Navbar() {
 
     if (user.email === import.meta.env.VITE_APP_ADMIN_EMAIL_NAME) {
       navigate("/admin");
-    } else {
-      navigate("/login");
     }
   }
 
@@ -54,6 +52,11 @@ function Navbar() {
 
   function redirectHome() {
     navigate("/");
+  }
+
+  function handleClickHome(item) {
+    setSection(item)
+    navigate('/')
   }
 
   function searchedItemBoxVisible(e) {
@@ -95,7 +98,7 @@ function Navbar() {
             <li
               key={index}
               className={section === item ? styles.activeCategotyTab : ""}
-              onClick={() => setSection(item)}
+              onClick={() => handleClickHome(item)}
             >
               {item}
             </li>
@@ -106,6 +109,7 @@ function Navbar() {
         navigate={navigate}
         setSideBarOpen={setSideBarOpen}
         cartItems={cartItems}
+        allProductData={allProductData}
       />
       <MobileSideBar
         sideBarOpen={sideBarOpen}

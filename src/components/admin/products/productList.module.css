@@ -176,6 +176,7 @@
   border-radius: 4px;
   background-color: #ff494f;
   cursor: pointer;
+  color: #58595b;
 }
 
 .pageNavigation .arrowButton:hover {

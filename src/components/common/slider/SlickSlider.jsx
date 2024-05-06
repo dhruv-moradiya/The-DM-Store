@@ -11,129 +11,9 @@ function SlickSlider({
   speed = 300,
   infinite = false,
 }) {
-  function getResponsiveProps() {
-    if (slidesToShow === 3) {
-      return [
-        {
-          breakpoint: 1440,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1250,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1000,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: false,
-          },
-        },
-      ];
-    } else if (slidesToShow === 4) {
-      return [
-        {
-          breakpoint: 1440,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1250,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1000,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 640,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: false,
-          },
-        },
-      ];
-    } else if (slidesToShow === 5) {
-      return [
-        {
-          breakpoint: 1440,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 5,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1250,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 1000,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 740,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            infinite: false,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 540,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: false,
-          },
-        },
-      ];
-    }
-  }
 
-  function trySome() {
-    console.log("slidesToShow in trySome:", slidesToShow); // Confirm the value of slidesToShow
+
+  function getResponsiveProps() {
     switch (slidesToShow) {
       case 5:
         return [
@@ -193,14 +73,26 @@ function SlickSlider({
           },
         ];
       default:
-        return [];
+        return [
+          {
+            breakpoint: 1440,
+            settings: { slidesToShow: 3, slidesToScroll: 3, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1250,
+            settings: { slidesToShow: 2, slidesToScroll: 2, infinite: false, dots: false },
+          },
+          {
+            breakpoint: 1000,
+            settings: { slidesToShow: 1, slidesToScroll: 1, infinite: false, dots: false },
+          },
+        ];;
     }
   }
 
-  const responsive = trySome();
+  const responsive = getResponsiveProps();
 
-  console.log("slidesToShow", slidesToShow, trySome())
-  const settings = {
+  const settingsSlider = {
     dots: false,
     infinite: infinite,
     speed: speed,
@@ -213,8 +105,12 @@ function SlickSlider({
     nextArrow: <NextButton />,
     responsive: responsive,
   };
+
+
+
+
   return (
-    <Slider {...settings} style={{ width: "100%" }}>
+    <Slider {...settingsSlider} style={{ width: "100%" }}>
       {children}
     </Slider>
   );

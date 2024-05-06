@@ -53,10 +53,14 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
   return (
     <div className={styles.container}>
       <h3 className={styles.name}>{data.name}</h3>
+      <h4>{data.category}</h4>
       <hr />
       <div className={styles.price}>
         <h4>₹{data.price}/-</h4>
         <p>MRP incl. of all taxes</p>
+      </div>
+      <div className={styles.discount}>
+        <h4>Discount: {data.discount}%</h4>
       </div>
       <ul className={styles.checkBoxes}>
         {data.chekedCheckBox.map((item, index) => {
@@ -118,12 +122,12 @@ function ProductDetailPart({ data, setIsVisible, setMessage }) {
           })}
         </ul>
       </div>
-      <div className={styles.pincode}>
+      {/* <div className={styles.pincode}>
         <form>
           <input type="text" placeholder="Pincode" />
         </form>
         <button>Submit</button>
-      </div>
+      </div> */}
       <div className={styles.description}>
         <h3>Product Description</h3>
         <p>{data.discription}</p>

@@ -10,7 +10,7 @@
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   border: 1px solid;
   border-left: 6px solid;
-  transition: all 500ms ease;
+  transition: all 900ms ease !important;
 }
 
 .visible {
