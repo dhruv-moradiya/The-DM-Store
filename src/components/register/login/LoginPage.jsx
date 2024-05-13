@@ -5,11 +5,14 @@ import { auth } from "../../../context/Firebase";
 import PopUp from "../../common/popUp/PopUp";
 import { useClothContext } from "../../../context/ClothContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../common/loader/Loader";
 
 function LoginPage() {
   const [error, setError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { setCurrentUser, currentUser } = useClothContext();
+
   const navigate = useNavigate();
   function navigateToNewAccount() {
     navigate('/signup')
@@ -26,6 +29,7 @@ function LoginPage() {
   }
 
   async function signin(e) {
+    setLoading(true)
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -33,6 +37,7 @@ function LoginPage() {
 
     if (password !== passwordConfirm) {
       setError("Password and confirmation password do not match");
+      setLoading(false)
       setIsVisible(true)
     } else {
       setError("");
@@ -40,10 +45,12 @@ function LoginPage() {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         setCurrentUser(userCredential.user);
         localStorage.setItem("DMStore_User", JSON.stringify(userCredential.user));
+        setLoading(false)
         navigate("/");
       } catch (error) {
         setError("Invalid email or password");
         setIsVisible(true)
+        setLoading(false)
         console.error("Error signing in:", error);
       }
     }
@@ -61,20 +68,13 @@ function LoginPage() {
       )}
       <h3>Login with The DM Store</h3>
       <div className={styles.innerContainer}>
-        <div className={styles.googleBtn}>
-          <div>
-            <i className="ri-google-fill"></i>
-          </div>
-          <div>Google</div>
-        </div>
-        <div>- OR -</div>
         <form className={styles.form} onSubmit={signin}>
           <input type="email" id="email" name="email" placeholder="Email Address" />
           <input type="password" id="password" name="password" placeholder="Password" />
           <input type="password" id="repassword" name="repassword" placeholder="Confirm password" />
           <button className={styles.newAccountBtn} onClick={navigateToNewAccount}>Create a new account</button>
           <button className={styles.btn} type="submit">
-            Login
+            {loading ? <Loader containerHeight="100%" containerWidth="100%" /> : "Login"}
           </button>
         </form>
       </div>

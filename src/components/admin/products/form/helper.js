@@ -1,4 +1,5 @@
 export function getDate(timeStamp) {
+  console.log("timeStamp", timeStamp)
   const monthsArray = [
     "January",
     "February",

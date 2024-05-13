@@ -1,7 +1,8 @@
 .container {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 14px;
   margin: 10px 0;
+  overflow-x: scroll;
 
   display: flex;
   flex-direction: column;
@@ -15,17 +16,20 @@
   font-size: 20px;
 }
 
-.container table {
+.table {
+  font-size: 13.5px;
   width: 90vw;
+  padding: 10px 12px;
 }
 
-.container th {
-  padding-bottom: 10px;
+.table th {
   text-align: left;
+  background-color: #eeeeee;
+  padding: 8px 10px;
 }
 
-.container td {
-  padding: 4px 0;
+.table td {
+  padding: 5px 0;
 }
 
 .imageTD {
@@ -41,8 +45,8 @@
   object-fit: cover;
 }
 
-@media screen and (max-width: 640px) {
-  .table p {
-    width: 150px;
+@media screen and (max-width: 740px) {
+  .heading {
+    width: 120px;
   }
 }

@@ -4,6 +4,7 @@ import Order from '../../../components/admin/adminPage/order/Order'
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useClothContext } from '../../../context/ClothContext';
 import { db } from '../../../context/Firebase';
+import Loader from '../../../components/common/loader/Loader';
 
 function Admin() {
   const { currentUser, cartItems } = useClothContext();
@@ -30,11 +31,14 @@ function Admin() {
   }, [currentUser]);
 
   if (!orderData) {
-    return null
+    return <Loader size="25px" containerHeight="calc(100vh - 536px)" containerWidth="calc(100vw - 100px)" />
+  }
+  if (orderData.length === 0) {
+    return <p className='adminOrderMessage'>No order Place yet.</p>
   }
   return (
     <>
-      <Howmany />
+      <Howmany orderData={orderData} />
       <Order orderData={orderData} />
     </>
   )

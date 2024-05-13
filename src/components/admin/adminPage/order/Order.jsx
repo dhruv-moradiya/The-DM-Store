@@ -13,19 +13,19 @@ function Order({ orderData }) {
   const columns = [
     columnHelper.accessor('id', {
       header: 'Order ID',
-      cell: (info) => info.getValue(),
+      cell: (info) => <p className={styles.headerPera}>{info.getValue()}</p>,
     }),
     columnHelper.accessor('userName', {
       header: 'User Name',
-      cell: (info) => info.getValue(),
+      cell: (info) => <p className={styles.headerPera}>{info.getValue()}</p>,
     }),
     columnHelper.accessor('phone', {
       header: 'Phone No',
-      cell: (info) => info.getValue(),
+      cell: (info) => <p className={styles.headerPera}>{info.getValue()}</p>,
     }),
     columnHelper.accessor('email', {
       header: 'Email',
-      cell: (info) => info.getValue(),
+      cell: (info) => <p className={styles.headerPera}>{info.getValue()}</p>,
     }),
     columnHelper.accessor((row) => row.cartItems, {
       id: 'items',
@@ -34,27 +34,30 @@ function Order({ orderData }) {
     }),
     columnHelper.accessor('total', {
       header: 'Total',
-      cell: (info) => info.getValue(),
+      cell: (info) => `₹${Math.round(info.getValue()).toLocaleString("en-IN")}`,
     }),
     columnHelper.accessor('discount', {
       header: 'Discount',
-      cell: (info) => info.getValue(),
+      cell: (info) => `₹${Math.round(info.getValue()).toLocaleString("en-IN")}`,
     }),
     columnHelper.accessor('taxAmount', {
       header: 'Tax Amount',
-      cell: (info) => info.getValue(),
+      cell: (info) => `₹${Math.round(info.getValue()).toLocaleString("en-IN")}`,
     }),
     columnHelper.accessor('date', {
       header: 'Date',
-      cell: (info) => info.getValue(),
+      cell: (info) => <p className={styles.headerPera}>{info.getValue()}</p>,
     }),
   ];
+
+  console.log(orderData)
 
   const table = useReactTable({
     data: orderData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
 
   return (
     <div className={styles.container}>

@@ -23,22 +23,6 @@
   font-size: 20px;
 }
 
-.googleBtn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  border: 1px solid black;
-  border-radius: 4px;
-  padding: 7px 20px;
-  cursor: pointer;
-  color: black;
-}
-
-.googleBtn:hover {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
 .form {
   width: 100%;
   padding: 10px;

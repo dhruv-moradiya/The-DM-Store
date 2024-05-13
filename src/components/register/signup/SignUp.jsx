@@ -6,20 +6,24 @@ import { auth, db, storage } from "../../../context/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Timestamp, doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../common/loader/Loader";
 
 function SignUp() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   function hidePopOver() {
     setIsVisible(false);
     setError("");
   }
   function navigateToLogin() {
-    navigate('/login')
+    navigate("/login");
   }
   async function hadleCreateUser(e) {
     e.preventDefault();
+    setLoading(true);
     const displayName = e.target[0].value;
     const age = e.target[1].value;
     const gender = e.target[2].value;
@@ -29,8 +33,21 @@ function SignUp() {
     const passwordConfime = e.target[6].value;
     const fileInput = e.target[7];
     const file = fileInput.files[0];
+
+    console.log("file", file)
+
     if (password !== passwordConfime) {
       setError("Password and confirmation password do not match");
+      setLoading(false);
+      setIsVisible(true);
+    } else if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      setIsVisible(true);
+    } else if (!fileInput) {
+      setError("Please upload your profile picture");
+      setLoading(false);
+      setIsVisible(true);
     } else {
       setError("");
       try {
@@ -50,12 +67,11 @@ function SignUp() {
           null,
           (err) => {
             setError(err.message);
-            console.log(err.message)
+            console.log(err.message);
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then(
               async (downloadURL) => {
-
                 await updateProfile(user, {
                   displayName,
                   photoURL: downloadURL,
@@ -71,14 +87,18 @@ function SignUp() {
                   photoURL: downloadURL,
                   time: Timestamp.now(),
                 });
-                navigate('/')
+
               }
             );
           }
         );
+        setLoading(false);
+        navigate("/");
       } catch (error) {
-        setError("Something went wrong, Please try again!");
-        console.log(error.message)
+        setError("Something went wrong!");
+        setLoading(false);
+        setIsVisible(true);
+        console.log(error.message);
       }
     }
   }
@@ -94,13 +114,6 @@ function SignUp() {
       )}
       <h3>Register with The DM Store</h3>
       <div className={styles.innerContainer}>
-        <div className={styles.googleBtn}>
-          <div>
-            <i className="ri-google-fill"></i>
-          </div>
-          <div>Google</div>
-        </div>
-        <div>- OR -</div>
         <form className={styles.form} onSubmit={hadleCreateUser}>
           <input type="text" id="name" placeholder="Name" required />
 
@@ -130,13 +143,27 @@ function SignUp() {
             required
           />
 
-          <label htmlFor="photo" className={styles.photo}>
-            <i className="ri-image-add-line"></i>Photo
-          </label>
-          <input type="file" id="photo" name="photo" required style={{ display: "none" }} />
-          <button className={styles.signBtn} onClick={navigateToLogin}>Log in</button>
+          <div className={styles.imagePart}>
+            <label htmlFor="photo" className={styles.photo}>
+              <i className="ri-image-add-line"></i>Photo
+            </label>
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              required
+              style={{ display: "block", textAlign: "center" }}
+            />
+          </div>
+          <button className={styles.signBtn} onClick={navigateToLogin}>
+            Log in
+          </button>
           <button className={styles.btn} type="submit">
-            Register
+            {loading ? (
+              <Loader containerHeight="100%" containerWidth="100%" />
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
       </div>

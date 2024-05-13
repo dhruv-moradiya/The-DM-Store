@@ -98,7 +98,7 @@ function CheckOut() {
           ),
           userName: currentUser.displayName,
           phone,
-          email,
+          email: currentUser.email,
           taxAmount: tax,
           discount,
           total,

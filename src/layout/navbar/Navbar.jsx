@@ -112,6 +112,7 @@ function Navbar() {
         allProductData={allProductData}
       />
       <MobileSideBar
+        handleClick={handleClick}
         sideBarOpen={sideBarOpen}
         setSideBarOpen={setSideBarOpen}
         currentUser={currentUser}

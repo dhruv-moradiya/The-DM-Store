@@ -69,6 +69,7 @@ function SearchBox({ setOpenSearch, allProductData }) {
   const [searchInputFilde, setSearchInputFilde] = useState("");
   const [showSearchedItems, setShowSearchedItems] = useState(null);
 
+
   function hideSeachBox() {
     setOpenSearch(false);
   }
@@ -106,6 +107,8 @@ function SearchBox({ setOpenSearch, allProductData }) {
   useEffect(() => {
     filterProducts();
   }, [searchInputFilde]);
+
+
   return (
     <div className={styles.backGround}>
       <input

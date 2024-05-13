@@ -3,6 +3,7 @@ import styles from '../navbar.module.css'
 import DropDownItemsContainer from './DropDownItemsContainer';
 
 function MobileSideBar({
+  handleClick,
   sideBarOpen,
   setSideBarOpen,
   logOutUser,
@@ -17,14 +18,13 @@ function MobileSideBar({
         }`}
     >
       <div className={styles.photo_Btn}>
-        <div className={styles.userPhoto}>
+        <div className={styles.userPhoto} onClick={handleClick}>
           <img src={currentUser.photoURL} alt="User" />
         </div>
         <button className={styles.logoutBtn} onClick={logOutUser}>
           LogOut
         </button>
       </div>
-      <input type="text" placeholder="Search" />
       <ul>
         {categoryArray.map((item, index) => {
           const dropDownItems = getDropDownItems(item, section);

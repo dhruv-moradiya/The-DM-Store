@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./userList.module.css";
+import { capitalize, getDate } from "../products/form/helper";
 
 function UserList({ data }) {
   return (
@@ -28,22 +29,22 @@ function UserList({ data }) {
                     </div>
                   </td>
                   <td>
-                    <p>{item.displayName}</p>
+                    <p className={styles.heading}>{item.displayName}</p>
                   </td>
                   <td>
-                    <p>{item.gender}</p>
+                    <p>{capitalize(item.gender)}</p>
                   </td>
                   <td>
                     <p>{item.age}</p>
                   </td>
                   <td>
-                    <p>+91 {item.phoneNo}</p>
+                    <p className={styles.heading}>+91 {item.phoneNo}</p>
                   </td>
                   <td>
                     <p>{item.email}</p>
                   </td>
                   <td>
-                    <p>October 25, 2021</p>
+                    <p className={styles.heading}>{getDate(item.time.seconds)}</p>
                   </td>
                 </tr>
               );

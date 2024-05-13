@@ -49,3 +49,17 @@
     width: 180px;
   }
 }
+
+@media screen and (max-width: 570px) {
+  .innerContainer {
+    padding: 0 15px;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .innerContainer {
+    padding: 0 15px;
+    grid-template-columns: repeat(1, minmax(150px, 1fr));
+  }
+}

@@ -13,6 +13,7 @@
 .innerContainer {
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   gap: 10px;
   /* border: 1px solid black; */
@@ -21,22 +22,6 @@
 
 .container h3 {
   font-size: 20px;
-}
-
-.googleBtn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  border: 1px solid black;
-  border-radius: 4px;
-  padding: 7px 20px;
-  cursor: pointer;
-  color: black;
-}
-
-.googleBtn:hover {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .form {
@@ -82,10 +67,19 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.16s;
+  margin-right: 20px;
 }
 
 .signBtn:hover {
   background-color: #cfcfcf;
+}
+
+.imagePart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 640px) {

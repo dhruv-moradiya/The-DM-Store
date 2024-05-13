@@ -23,3 +23,26 @@ a {
     gap: 10px;
   }
 }
+
+/* Oder Page */
+
+.orderPage {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 640px) {
+  .orderPage {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Admin Page */
+
+.adminOrderMessage {
+  font-size: 15px;
+  text-align: center;
+  padding: 5px 10px;
+}

@@ -34,7 +34,7 @@ function MyOrder() {
     );
   if (orderData.length === 0)
     return (
-      <p style={{ padding: "0 20px" }}>It looks like you haven't placed any orders yet. Ready to start shopping? If you need assistance finding something or have questions about our products, feel free to reach out. We're here to help!</p>
+      <p style={{ padding: "10px 20px" }}>It looks like you haven't placed any orders yet. Ready to start shopping? If you need assistance finding something or have questions about our products, feel free to reach out. We're here to help!</p>
     );
   return (
     <div>

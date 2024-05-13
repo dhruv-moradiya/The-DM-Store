@@ -7,12 +7,8 @@ function Order() {
   const { currentUser, cartItems } = useClothContext();
 
   return (
-    <div style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
-      <ProductList
-        currentUser={currentUser}
-        cartItems={cartItems}
-      />
-
+    <div className="orderPage">
+      <ProductList currentUser={currentUser} cartItems={cartItems} />
       <CheckOut />
     </div>
   );

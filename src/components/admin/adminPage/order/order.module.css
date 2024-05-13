@@ -8,6 +8,11 @@
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
+  font-size: 13.5px;
+}
+
+.table th {
+  background-color: #eeeeee;
 }
 
 .table th,
@@ -21,9 +26,16 @@
     width: 100%;
   }
 
-  .table th {
+  .table .headerPera {
     width: 150px;
-    font-size: 14px;
+  }
+
+  .table .headerPera:nth-child(1) {
+    width: 190px;
+  }
+
+  .table .headerPera:nth-child(2) {
+    width: 120px;
   }
 
   .table td {
